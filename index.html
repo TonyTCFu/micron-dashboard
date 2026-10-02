@@ -4,14 +4,13 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="color-scheme" content="dark" />
-  <meta name="description" content="泛林集团（NASDAQ: LRCX）研究看板：行情、财务、空头、分析师评级与事件雷达。数据截至 2026-10-01 美股收盘。" />
-  <link rel="icon" type="image/png" sizes="32x32" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABmJLR0QA/wD/AP+gvaeTAAADwklEQVRYw8XXW4iVVRQH8N86Z/J+PWND4qSNTWJoUCqpRVEYhfXSjcpMLUmoTF+it54kEkqKHqIgIsKyhyJ6yCBDukiQFWGQWGIZkUWKo6CWNMzZPex9cpS5nJnMFmy+851vf3v913//117r43+2GO6LnZ0L4bxy271v385hrVMZrvOUEizHHaQGoCFby3AZiIgZeAwniU/w2zlhIEca8ADmYh5WpDQ8FoYE4JSDdHkB0FhjTUTMPicMyMJ7BNN7Y8NDqA6VhaYB9BLedbizjynLsBhmzVr83zAQEeOxHpP7eNyGdRhdr9fPLoBe0d+KGwaYeguWDiUtm2YgIqbiUYwaYNrYzFC0njUGcvR1WIEFTax5Ne5pNi2bYiCiMhtrmpzfgocjouNfM1AiqMop1tnMgsXm4MEIMRgL/QLI1COn1rIhOG/YqpTM6xXI0BmIMFpOuzb8VUazNk0W7YghM9Ar7W4ug1wADuBXNJvot2HJQILsl4GImCIfLGOR5CN4WgGxAyeaADAR6yNiYn8Tqv1FHxGrnVJ+4A+cxEU4hA8wAYPl/IX4MaW0q7W1XVfXgcEZiIiZsvJ79wsji+OvcRmux2a8VYD1ZyOxNiKmDcpA2afA47i916NUrjUcxjbMxLV4Fx/iEn3XCLgAR3p6undMmTL9NBZOA1CrTUMswMZC7z+k4Bh+wcXy3r5WIl+J/XgO48rzM7c20FGpVLfjYJ8ASqczAhtKZGfaCBzBdrkXuAZvl+jvk7XxFL6TO6UJZ7zfYGdbrdZeb4CoZueLGsK7CU/ou+CclAU3Fq/KolyFvdgkt2Z3YwveQDs6nK6zDuwk/VSrZUFWG9SXVNkkH6N92XF8Jh9KV+F1ORNWyum5AUfl1P0Zz5T7uWVrYExmJraiu6vrQG6hSvTLsVb/nfLoEs3LBcz9+AZPY74s2s3YirtKtC/hY8woo1Kue1JKu1tb21VrtXYR0Y5n5ZwdyCYXkb1Yol9V/ntSFulq/IBXiiZuLAC2lC2cg0mYGhHv4UR1zJiKlpbx63Cv5r6UJpUt2IrncYUs2jfxaXE6SRboISxBF97BV4WZRfg9pfR5ta3t0vmyemtNOG/YeLk5/R4v4M9yv1c+I86Xy/cu7C6/x+BLvF/WWBoRX1RrtfaNuBLdTlW8ZsYouVQfqFRatqZU31fEeLxer++JiGNojXA4JfsjtGB0pVI5mFL6SK4pndHZuXCxYX+ipQpxFN+ip4isWq22dNfrPVJKlYhAqtfrdZVKtUrUSSm3eTFueH7Pov0Nn2sQRk77TdUAAAAASUVORK5CYII=" />
-  <link rel="icon" type="image/png" sizes="192x192" href="data:image/png;base64,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" />
-  <link rel="apple-touch-icon" href="data:image/png;base64,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" />
+  <meta name="description" content="美光科技（NASDAQ: MU）研究看板：行情、财务、空头、分析师评级与事件雷达。数据截至 2026-10-01 美股收盘。" />
+  <link rel="icon" type="image/png" sizes="32x32" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAyUlEQVR4nO2UXQ3DMAyEA6EQAqUQCiEQCsEQAqEQBqEQAiEQxmBztDx0p/yu7aZqPunUh1zsL04VpUQi0YU0sx37AfZsgqxhr5lsWBt6Gg+ZxugbW8dvLet6IFInOcKupfmYOekU1yz7XmhiN7nUFKcagIUNSyNksPmw3ps8bMjdG957brwacr4GsA2vhRxBlgpZvIpDAMYOAJzW1wFIAC4DgMFS0V0AlDA+GMHzWQCtb7f+JYApFDwFwKvXT7fE4jXtAhCJRP+tJ0Z/8Y/ODAeiAAAAAElFTkSuQmCC" />
+  <link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAyUlEQVR4nO2UXQ3DMAyEA6EQAqUQCiEQCsEQAqEQBqEQAiEQxmBztDx0p/yu7aZqPunUh1zsL04VpUQi0YU0sx37AfZsgqxhr5lsWBt6Gg+ZxugbW8dvLet6IFInOcKupfmYOekU1yz7XmhiN7nUFKcagIUNSyNksPmw3ps8bMjdG957brwacr4GsA2vhRxBlgpZvIpDAMYOAJzW1wFIAC4DgMFS0V0AlDA+GMHzWQCtb7f+JYApFDwFwKvXT7fE4jXtAhCJRP+tJ0Z/8Y/ODAeiAAAAAElFTkSuQmCC" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <title>LRCX Dashboard</title>
+  <title>Micron Dashboard</title>
   <style>
     :root {
       color-scheme: dark;
@@ -22,9 +21,8 @@
       --muted: #9ba9b6;
       --line: #27313b;
       --line-strong: #45515e;
-      --accent: #5ba7e8;
-      --chart: #5ba7e8;
-      --chart-fill: rgba(91,167,232,.12);
+      --accent: #4db8ff;
+      --chart: #4db8ff;
       --positive: #47c6a1;
       --warning: #e3a84d;
       --danger: #ff6678;
@@ -48,7 +46,6 @@
     .pos { color: var(--positive); }
     .neg { color: var(--danger); }
 
-    /* ---------- Masthead ---------- */
     .mast {
       display: flex; justify-content: space-between; align-items: flex-start; gap: 18px;
       padding: 26px 26px 22px;
@@ -81,7 +78,6 @@
     }
     .snapshot-warning strong { color: var(--warning); }
 
-    /* ---------- Section nav ---------- */
     .section-nav {
       display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 18px;
       position: sticky; top: 0; z-index: 5;
@@ -95,7 +91,6 @@
     }
     .section-nav a:hover { color: var(--accent); border-color: var(--accent); }
 
-    /* ---------- Metrics strip ---------- */
     .metrics {
       display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 26px;
     }
@@ -113,7 +108,6 @@
     .metric-value .chg { font-size: .44em; font-weight: 600; white-space: nowrap; }
     .metric-sub { font-size: 12px; color: var(--muted); line-height: 1.55; }
 
-    /* ---------- Price card refresh ---------- */
     .price-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 6px; }
     .price-head .metric-label { margin-bottom: 0; min-width: 0; }
     #refreshQuote {
@@ -124,7 +118,6 @@
     #refreshQuote:hover { filter: brightness(1.18); }
     #refreshQuote:disabled { opacity: .55; cursor: wait; }
 
-    /* ---------- Sections ---------- */
     .section { margin-bottom: 34px; scroll-margin-top: 64px; }
     .section-head {
       display: flex; justify-content: space-between; align-items: baseline; gap: 12px;
@@ -149,7 +142,6 @@
     .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; align-items: start; }
     .three-col { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; align-items: start; }
 
-    /* ---------- Data grid ---------- */
     .data-grid {
       display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;
     }
@@ -180,7 +172,6 @@
     }
     .cite:hover { text-decoration: underline; }
 
-    /* ---------- Chart ---------- */
     .chart-panel { padding: 8px 0 4px; }
     .chart-toolbar {
       display: flex; justify-content: space-between; align-items: center; gap: 12px;
@@ -206,7 +197,6 @@
     }
     .chart-note { padding: 6px 18px 16px; font-size: 12px; color: var(--muted); }
 
-    /* ---------- Tables ---------- */
     .plain-table { width: 100%; border-collapse: collapse; font-size: 13px; }
     .plain-table th {
       text-align: left; font-size: 11px; letter-spacing: .08em; color: var(--muted);
@@ -217,7 +207,6 @@
     .plain-table td:nth-child(n+2) { font-family: "IBM Plex Mono", monospace; font-size: 12.5px; }
     .plain-table td:nth-child(2) { font-family: "IBM Plex Sans Condensed", "Noto Sans SC", sans-serif; font-size: 13px; font-weight: 500; }
 
-    /* ---------- Target ladder ---------- */
     .pt-list { padding: 6px 0; }
     .pt-row {
       display: grid; grid-template-columns: 190px 1fr 130px; gap: 12px; align-items: center;
@@ -229,7 +218,6 @@
     .pt-track { position: relative; background: var(--surface-2); height: 20px; border-radius: 2px; }
     .pt-bar { height: 100%; background: var(--positive); opacity: .75; border-radius: 2px; }
     .pt-bar.up { background: var(--positive); }
-    .pt-bar.down { background: var(--danger); }
     .pt-row.avg .pt-bar { background: var(--muted); opacity: .55; }
     .pt-row.avg { background: var(--surface-2); border-radius: 4px; padding-left: 10px; padding-right: 10px; margin: 6px -10px; }
     .pt-baseline { position: absolute; top: -2px; bottom: -2px; width: 2px; background: var(--accent); }
@@ -237,7 +225,6 @@
     .pt-val em { display: block; font-style: normal; font-size: 11px; }
     .pt-note { font-size: 12px; color: var(--muted); padding: 10px 0 4px; }
 
-    /* ---------- Events ---------- */
     .tl-sub {
       font-family: "IBM Plex Sans Condensed", "Noto Sans SC", sans-serif;
       font-size: 16px; font-weight: 600; padding: 18px 18px 12px;
@@ -255,7 +242,6 @@
     .event p { margin: 0; font-size: 13px; color: var(--muted); }
     .event p strong { color: var(--ink); }
 
-    /* ---------- Thesis / risks ---------- */
     .thesis-list, .risk-list { list-style: none; margin: 0; padding: 0; }
     .thesis-list li, .risk-list li { display: flex; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--line); }
     .thesis-list li:last-child, .risk-list li:last-child { border-bottom: 0; }
@@ -276,7 +262,6 @@
 
     footer { font-size: 12px; color: var(--muted); text-align: center; padding-top: 8px; }
 
-    /* ---------- Responsive ---------- */
     @media (max-width: 900px) {
       .metrics { grid-template-columns: 1fr 1fr; }
       .data-grid { grid-template-columns: 1fr 1fr; }
@@ -308,14 +293,14 @@
   <main class="shell">
     <header class="mast">
       <div>
-        <div class="ticker">NASDAQ · LRCX / RESEARCH SNAPSHOT</div>
-        <h1>Lam Research<span class="tagline">半导体设备 · Lam Research Corporation（LRCX）</span></h1>
+        <div class="ticker">NASDAQ · MU / RESEARCH SNAPSHOT</div>
+        <h1>Micron 美光科技<span class="tagline">AI 存储 · Micron Technology, Inc.（MU）</span></h1>
         <p class="mast-note">价格卡可手动刷新实时行情（美东交易时段打开时自动刷新一次）；财务、做空、分析师与事件为截至 2026-10-01（美东）的静态研究快照，其余数字均按旁注日期与口径呈现，来源标注于每个数字之下。</p>
       </div>
       <div class="asof"><strong>数据快照 · 2026-10-01</strong>美股收盘 · ET · USD<br />调研日期 2026-10-02</div>
     </header>
 
-    <div class="snapshot-warning"><strong>先看数据边界：</strong>分析师目标价与评级属于第三方观点，不等于事实或投资建议；借券利用率与借券费率无免费公开源，本页仅呈现 FINRA 数据并标注边界；Q1 FY2027 财报日期来源间有分歧（marketbeat / ad-hoc-news 为 10/21 盘后，OptiView 为 10/25 ⚠️）；30 天 ATM IV 两个来源口径不同（53.6% / 62.7% ⚠️），已并列标注。</div>
+    <div class="snapshot-warning"><strong>先看数据边界：</strong>分析师目标价与评级属于第三方观点，不等于事实或投资建议；借券利用率与借券费率无免费公开源，本页仅呈现 FINRA 数据并标注边界；⚠️ 标注项为单一来源或来源间有出入，保持标注、不编造。</div>
 
     <nav class="section-nav" aria-label="页面章节">
       <a href="#market">行情</a><a href="#options-structure">期权结构</a><a href="#financials">财务</a><a href="#short">做空</a><a href="#analysts">分析师</a><a href="#events">事件雷达</a><a href="#thesis">为什么关注</a><a href="#risks">风险</a>
@@ -327,23 +312,23 @@
           <span class="metric-label">实时行情 <span class="tag unavailable" id="quoteStateTag">收盘 · 静态快照</span></span>
           <button type="button" id="refreshQuote">↻ 刷新实时行情</button>
         </div>
-        <span class="metric-value"><span id="quotePrice">$340.10</span> <span class="chg pos" id="quoteChg">+$11.59 · +3.53%</span></span>
-        <div class="metric-sub" id="quoteMeta">报价 2026-10-01 16:00 ET · 收盘 · 较前收盘 $328.51 · 来源 Nasdaq 官方 API（静态快照）</div>
+        <span class="metric-value"><span id="quotePrice">$1,097.39</span> <span class="chg pos" id="quoteChg">+$32.28 · +3.03%</span></span>
+        <div class="metric-sub" id="quoteMeta">报价 2026-10-01 16:00 ET · 收盘 · 较前收盘 $1,065.11 · 来源 Nasdaq 官方 API（静态快照）</div>
       </article>
       <article class="metric">
         <span class="metric-label">市值 · 2026-10-01</span>
-        <span class="metric-value">≈$425.6B</span>
-        <div class="metric-sub">1.251B 股 × $340.10；dailypolitical / zolmax 10/01 口径一致，随股价浮动</div>
+        <span class="metric-value">≈$1.20–1.23T</span>
+        <div class="metric-sub">finnhub $1.20T；financecharts $1.229T；tradingnews “$1.2 trillion”，随股价浮动</div>
       </article>
       <article class="metric">
         <span class="metric-label">空头仓位 · 2026-09-15</span>
-        <span class="metric-value">26.08M</span>
-        <div class="metric-sub">占流通盘 2.09% · 3.1 天回补 · <a class="cite" href="https://www.marketbeat.com/stocks/NASDAQ/LRCX/short-interest/" target="_blank" rel="noreferrer">FINRA / MARKETBEAT ↗</a></div>
+        <span class="metric-value">27.63M</span>
+        <div class="metric-sub">占流通盘 2.45% · 空头下降中 · <a class="cite" href="https://www.MarketBeat.com/stocks/NASDAQ/MU/short-interest/" target="_blank" rel="noreferrer">FINRA / MARKETBEAT ↗</a></div>
       </article>
       <article class="metric">
         <span class="metric-label">分析师共识 · 目标价均值</span>
-        <span class="metric-value">Moderate Buy <span class="chg" style="font-size:.44em">均值≈$361.81</span></span>
-        <div class="metric-sub">32 家覆盖（26 Buy + 1 Strong Buy + 5 Hold）· 均值隐含约 +6.4% 上行空间 · <a class="cite" href="https://www.marketbeat.com/stocks/NASDAQ/LRCX/forecast/" target="_blank" rel="noreferrer">MARKETBEAT ↗</a>（2026-10-01 口径）</div>
+        <span class="metric-value">Buy <span class="chg" style="font-size:.44em">均值≈$1,348–1,564</span></span>
+        <div class="metric-sub">约 40–49 家覆盖，38–40 Buy + 5 Hold + 0 Sell · 共识区间因口径而异 · <a class="cite" href="https://www.marketbeat.com/stocks/NASDAQ/MU/forecast/" target="_blank" rel="noreferrer">MARKETBEAT ↗</a></div>
       </article>
     </section>
 
@@ -351,34 +336,34 @@
       <div class="section-head"><h2>股价表现</h2><span class="section-index">01 / MARKET</span></div>
 
       <div class="three-col" style="margin-bottom:12px">
-        <article class="card"><h3>公司</h3><div class="segment-value">Lam Research</div><p>半导体晶圆制造设备龙头，1980 年成立，Nasdaq-100 成分股；约 <strong>23,300 名员工</strong>。财年 6 月结束，当前为 FY2027 第一季度。</p></article>
-        <article class="card"><h3>主营业务</h3><div class="segment-value" style="font-size:24px">刻蚀 · 沉积</div><p>晶圆制造设备（etch / deposition），对 <strong>存储（DRAM / NAND）</strong>资本开支敞口大；另有客户支持与服务业务贡献稳定收入。</p></article>
-        <article class="card"><h3>Q4 FY2026 业务结构</h3><div class="segment-value" style="font-size:22px">$4.25B 系统 / $2.47B 服务</div><p><strong>Systems（系统设备）$4.25B（+23.6% YoY）</strong>；<strong>Customer Support（客户支持）$2.47B（+42.6% YoY）</strong>，连续第三个季度创纪录。</p></article>
+        <article class="card"><h3>公司</h3><div class="segment-value">Micron</div><p>AI 存储龙头；FQ4 2026 营收 $54.23B（+379% YoY，6 连创季度新高）。DRAM $39.77B（73%）、NAND $14.10B（26%），数据中心 SSD ~$10B（&gt;10 倍 YoY）。</p></article>
+        <article class="card"><h3>CEO</h3><div class="segment-value" style="font-size:24px">Sanjay Mehrotra</div><p>“Fiscal 2026 was an outstanding year... we expect an even stronger fiscal 2027.” HBM 售罄至 2028，$32B 长约锁定、$150B 剩余履约义务。</p></article>
+        <article class="card"><h3>FQ4 2026 业绩</h3><div class="segment-value" style="font-size:22px">$54.23B 营收 / EPS $33.42</div><p>调整后 EPS $33.42 超预期的 $31.6–31.8；调整后毛利率 87.0%。Q1 FY2027 指引营收 $60–63B（超预期的 $56.8B）、调整后 EPS $37.15–39.15。</p></article>
       </div>
 
       <div class="panel chart-panel">
         <div class="chart-toolbar">
-          <h3>LRCX 日收盘价 · USD · 2026-07-02 至 2026-10-01</h3>
+          <h3>MU 日收盘价 · USD · 2026-07-02 至 2026-10-01</h3>
           <div class="range-switch" aria-label="图表区间">
             <button type="button" data-range="all" aria-pressed="true">全部</button>
             <button type="button" data-range="1m" aria-pressed="false">近 1 个月</button>
           </div>
         </div>
-        <div class="chart-wrap"><svg id="priceChart" viewBox="0 0 960 360" role="img" aria-label="LRCX 自 2026 年 7 月 2 日至 10 月 1 日的每日收盘价折线图，标注关键事件"></svg></div>
+        <div class="chart-wrap"><svg id="priceChart" viewBox="0 0 960 360" role="img" aria-label="MU 自 2026 年 7 月 2 日至 10 月 1 日的每日收盘价折线图，标注关键事件"></svg></div>
         <div class="chart-stats" id="chartStats"></div>
         <div class="chart-readout" id="chartReadout">移动指针查看日期与收盘价</div>
-        <div class="chart-note">纵轴按可见数据范围缩放，非零基线；日期按真实时间间隔绘制（周末空档可见）。64 个交易日 · Nasdaq 官方历史 API 日线，与 quote API、Finnhub、marketbeat 交叉确认（09-30 收盘 OptiView 页眉 $328.69 与 Nasdaq $328.51 有 $0.18 出入，以 Nasdaq 官方为准）。未复权收盘口径；9/23 除息 $0.33。</div>
+        <div class="chart-note">纵轴按可见数据范围缩放，非零基线；日期按真实时间间隔绘制（周末空档可见）。64 个交易日 · Nasdaq 官方历史 API（/api/quote/MU/historical），2026-10-02 抓取。10/01 收盘 $1,097.39 与 primaryData 快照一致；区间最低收盘 $739.00，最高收盘 $1,097.39（10-01）。</div>
       </div>
 
       <div class="data-grid" style="margin-top:12px">
-        <div class="datum"><span class="k">开盘 / 最高 / 最低</span><span class="v">$332.00 / $341.64 / $331.05</span><span class="k">2026-10-01 · Nasdaq 官方历史 API</span></div>
-        <div class="datum"><span class="k">成交量</span><span class="v">8.70M 股</span><span class="k">2026-10-01，共 8,700,108 股 · Nasdaq 官方 API</span></div>
-        <div class="datum"><span class="k">52 周区间</span><span class="v">$131.02 – $438.50</span><span class="k">Nasdaq 官方 API，2026-10-01（⚠️低点口径：OptiView $131.35 / Finnhub $126.37，以 Nasdaq 官方为准）</span></div>
-        <div class="datum"><span class="k">距 52 周高点</span><span class="v">−22.4%</span><span class="k">较收盘 $340.10，还差 $98.40 创新高</span></div>
-        <div class="datum"><span class="k">前收盘</span><span class="v">$328.51</span><span class="k">2026-09-30 收盘 · Nasdaq 官方历史 API</span></div>
-        <div class="datum"><span class="k">当日涨跌</span><span class="v pos">+$11.59 · +3.53%</span><span class="k">截至 2026-10-01 16:00 ET · Nasdaq 官方 API；Micron 财报超预期带动设备股普涨（Reuters）</span></div>
-        <div class="datum"><span class="k">市值口径</span><span class="v">≈$425.6B</span><span class="k">流通股本 1,251,420,000 股（marketbeat）× $340.10；dailypolitical / zolmax 10/01 口径一致</span></div>
-        <div class="datum"><span class="k">季度股息</span><span class="v">$0.33 / 股</span><span class="k">+27%（8/27 董事会批准）· 9/23 除息 · 10/14 派发 · 年化 $1.32，股息率约 0.4%</span></div>
+        <div class="datum"><span class="k">开盘 / 最高 / 最低</span><span class="v">$1,054.08 / $1,098.90 / $1,022.90</span><span class="k">2026-10-01 · Nasdaq 历史 API；marketbeat 一致（日高 $1,098.90）</span></div>
+        <div class="datum"><span class="k">成交量</span><span class="v">45.74M 股</span><span class="k">2026-10-01，共 45,736,054 股 · Nasdaq 官方 API（marketbeat：44,653,044，高于日均 41,947,691）</span></div>
+        <div class="datum"><span class="k">52 周区间</span><span class="v">$165.50 – $1,255.00</span><span class="k">Nasdaq 官方 API ⚠️（OptiView $181.44–$1,203.64 口径不一，本页采用 Nasdaq 口径）</span></div>
+        <div class="datum"><span class="k">距 52 周高点</span><span class="v">-12.6%</span><span class="k">较收盘 $1,097.39，还差 $157.61 创新高（Nasdaq 口径）</span></div>
+        <div class="datum"><span class="k">前收盘</span><span class="v">$1,065.11</span><span class="k">2026-09-30 收盘 · Nasdaq 历史 API / marketbeat / clearank / tradingnews</span></div>
+        <div class="datum"><span class="k">当日涨跌</span><span class="v pos">+$32.28 · +3.03%</span><span class="k">截至 2026-10-01 16:00 ET · Nasdaq 官方 API；FQ4 财报（9/30 盘后）后首个交易日</span></div>
+        <div class="datum"><span class="k">市值口径</span><span class="v">≈$1.20–1.23T</span><span class="k">finnhub $1.20T；financecharts $1.229T；YTD +275–284%、1 年 +~500%（finnhub 快照）</span></div>
+        <div class="datum"><span class="k">季度股息</span><span class="v">$0.15 / 股</span><span class="k">除息 10/14、派发 10/29；$0.60 年化，股息率 ~0.1%（marketbeat）</span></div>
       </div>
     </section>
 
@@ -395,111 +380,88 @@
       </div>
 
       <div class="data-grid">
-        <div class="datum"><span class="k">净做市商 GEX</span><span class="v pos">正</span><span class="k">约 +$70.2M，FlashAlpha（10/01 17:41 ET 快照）</span></div>
-        <div class="datum"><span class="k">Call Wall</span><span class="v">$340</span><span class="k">阻力参考 · 与 10/01 收盘 $340.10 几乎重合</span></div>
-        <div class="datum"><span class="k">Put Wall</span><span class="v">$280</span><span class="k">支撑参考</span></div>
-        <div class="datum"><span class="k">Max Pain</span><span class="v">$280</span><span class="k">全期限口径 · OptiView 09/30</span></div>
-        <div class="datum"><span class="k">Put-Call 未平仓比</span><span class="v">1.15</span><span class="k">Call 236,774 张／Put 271,981 张 · OptiView 09/30</span></div>
-        <div class="datum"><span class="k">30 天 ATM IV</span><span class="v">53.6%</span><span class="k">FlashAlpha 10/01（⚠️OptiView 09/30 口径 62.7%）· IV Rank 62/100，Moderate</span></div>
-        <div class="datum"><span class="k">期权隐含预期波幅</span><span class="v">±$51.69</span><span class="k">±15.7% · OptiView 09/30；20 天历史波动率 57.5%（FlashAlpha）</span></div>
+        <div class="datum"><span class="k">净做市商 GEX</span><span class="v pos">正</span><span class="k">约 +$1.0B，FlashAlpha 2026-10-01</span></div>
+        <div class="datum"><span class="k">Call Wall</span><span class="v">$1,100</span><span class="k">阻力参考 · FlashAlpha（OptiView 全期限口径 $1,300）</span></div>
+        <div class="datum"><span class="k">Put Wall</span><span class="v">$1,000</span><span class="k">支撑参考 · FlashAlpha（OptiView 全期限口径 $600）</span></div>
+        <div class="datum"><span class="k">Max Pain</span><span class="v">$840</span><span class="k">做市商对冲参考位 · OptiView 2026-09-30（较收盘低 21%）</span></div>
+        <div class="datum"><span class="k">Put-Call 未平仓比</span><span class="v">1.01</span><span class="k">Call 157.0 万张／Put 159.1 万张 · OptiView 2026-09-30（2 月为 1.25，持续下降）</span></div>
+        <div class="datum"><span class="k">30 天 ATM IV</span><span class="v">54.1%</span><span class="k">IV Rank 2/100，低 · FlashAlpha 10/01（OptiView 9/30 为 62.6%，口径/时点差异）</span></div>
+        <div class="datum"><span class="k">期权隐含预期波幅</span><span class="v">±$104.51</span><span class="k">±9.8% · OptiView 2026-09-30；20 天 HV 49.9%，ATM IV 高于 HV，期权相对偏贵</span></div>
       </div>
 
-      <p style="margin:12px 0 0;font-size:12px;color:var(--muted);line-height:1.7">数据来源 OptiView、FlashAlpha（OPRA 延迟数据）。Call/Put Wall 与 Max Pain 为做市商对冲参考位，不构成买卖建议。Gamma Flip 各模型分歧较大，本板块不列固定数值。GEX 正负基于“做市商持有与公开订单流相反头寸”的模型假设。补充：全期限 OI 口径 Call/Put Wall 为 $300 / $230（OptiView 09/30），与上方 gamma 口径不同；10/01 当日最大成交行权价为 $330。</p>
+      <p style="margin:12px 0 0;font-size:12px;color:var(--muted);line-height:1.7">数据来源 OptiView、FlashAlpha（OPRA 延迟数据）。Call/Put Wall 与 Max Pain 为做市商对冲参考位，不构成买卖建议。Gamma Flip 各模型分歧较大，本板块不列固定数值。GEX 正负基于“做市商持有与公开订单流相反头寸”的模型假设。</p>
     </section>
 
     <section class="section" id="financials">
-      <div class="section-head"><h2>财务表现 · Q4 FY2026</h2><span class="section-index">02 / FINANCIALS</span></div>
+      <div class="section-head"><h2>财务表现 · FQ4 2026</h2><span class="section-index">02 / FINANCIALS</span></div>
       <div class="data-grid">
-        <div class="datum"><span class="k">Q4 FY2026 总营收</span><span class="v">$6.72B <small class="pos">+30.0% YoY</small></span><span class="k">季度截至 2026-06-28 · 环比 +15.1% · 财报发布 2026-07-29</span></div>
-        <div class="datum"><span class="k">Systems 系统设备营收</span><span class="v">$4.25B <small class="pos">+23.6% YoY</small></span><span class="k">刻蚀 / 沉积等新机台设备收入</span></div>
-        <div class="datum"><span class="k">Customer Support 服务营收</span><span class="v">$2.47B <small class="pos">+42.6% YoY</small></span><span class="k">连续第三个季度创纪录</span></div>
-        <div class="datum"><span class="k">Non-GAAP 毛利率</span><span class="v">52.0%</span><span class="k">环比 +210bps · 管理层称 20 年来最高单季</span></div>
-        <div class="datum"><span class="k">Non-GAAP 经营利润率</span><span class="v">38.4%</span><span class="k">环比 +340bps</span></div>
-        <div class="datum"><span class="k">净利润（GAAP）</span><span class="v">$2.28B</span><span class="k">Q4 FY2026 · 净利率 31.27%（marketbeat 快照）</span></div>
-        <div class="datum"><span class="k">稀释 EPS</span><span class="v">非 GAAP $1.82 · GAAP $1.81</span><span class="k">Non-GAAP 超出共识 $1.69；去年同期 $1.33（+36.8%）</span></div>
-        <div class="datum"><span class="k">现金回报与分红</span><span class="v">$5.12B</span><span class="k">FY2026 股东回报（回购 + 股息）；股息 +27% 至 $0.33/季，连续 10 年增加股息</span></div>
-        <div class="datum"><span class="k">FY2026 全年营收</span><span class="v">$23.23B <small class="pos">+26% YoY</small></span><span class="k">全年 GAAP EPS $5.76 / Non-GAAP EPS $5.82</span></div>
-        <div class="datum"><span class="k">Q1 FY2027 指引</span><span class="v">营收 $8.10B ±$400M</span><span class="k">Non-GAAP EPS $2.15 ±$0.15 · 远超当时共识（营收约 $7.0B / EPS 约 $1.81）· GAAP 经营利润率约 39.5%</span></div>
+        <div class="datum"><span class="k">FQ4 2026 总营收</span><span class="v">$54.23B <small class="pos">+379% YoY</small></span><span class="k">季度截至 2026-08-27 · FQ3 $41.46B · 6 连创季度新高 · 财报发布 2026-09-30 盘后</span></div>
+        <div class="datum"><span class="k">调整后 EPS</span><span class="v">$33.42 <small class="pos">超预期</small></span><span class="k">预期 $31.61–31.83；GAAP EPS $32.87（去年同期 $2.83）</span></div>
+        <div class="datum"><span class="k">调整后毛利率</span><span class="v">87.0%</span><span class="k">FQ3 84.9%，+210 bps（指引 ~86.25%，超指引）；GAAP 毛利率 86.8%</span></div>
+        <div class="datum"><span class="k">GAAP 净利润</span><span class="v">$37.70B</span><span class="k">GAAP 营业利润 $43.751B（利润率 80.7%）；调整后营业利润 $44.6B（82%）</span></div>
+        <div class="datum"><span class="k">经营现金流 / 自由现金流</span><span class="v">$43.97B / $33.20B</span><span class="k">调整后自由现金流 $33.20B · FQ4 2026</span></div>
+        <div class="datum"><span class="k">DRAM 营收</span><span class="v">$39.771B <small class="pos">+343% YoY</small></span><span class="k">占比 73% · ASP 环比涨 high-teens %；出货量涨中个位数 %</span></div>
+        <div class="datum"><span class="k">NAND 营收</span><span class="v">$14.102B <small class="pos">+526% YoY</small></span><span class="k">占比 26% · 出货量 +10%；ASP +30%；数据中心 SSD ~$10B（&gt;10 倍 YoY）</span></div>
+        <div class="datum"><span class="k">Q1 FY2027 指引</span><span class="v">$60–63B 营收</span><span class="k">调整后 EPS $37.15–39.15；调整后毛利率 ~86.25% ⚠️（有分析师认为毛利率指引偏软，fxleaders）</span></div>
+        <div class="datum"><span class="k">FY2026 全年营收</span><span class="v">$133.19B <small class="pos">+256% YoY</small></span><span class="k">FY2025 $37.38B；GAAP 净利润 $84.97B；调整后 EPS $75.52；经营现金流 $89.68B</span></div>
+        <div class="datum"><span class="k">客户预付款 / 长约</span><span class="v">$12.7B / $32B</span><span class="k">FQ4 新增 $12.3B；26 份多年期 take-or-pay 协议 $32B（6 月 $22B）；剩余履约义务 ~$150B</span></div>
+        <div class="datum"><span class="k">资本开支</span><span class="v">FY27 上半年 ~$25B</span><span class="k">其中 Q1 ~$11.5B，投向美、日、台、新加坡新厂</span></div>
+        <div class="datum"><span class="k">资本回报</span><span class="v">12/09 启动</span><span class="k">12 月 9 日起启动大规模资本回报计划（CFO Mark Murphy）；回购授权剩余额度 $2.2B（stocktwits）</span></div>
       </div>
       <article class="card" style="margin-top:12px">
-        <h3>估值快照与口径细节</h3>
-        <p><strong>估值（2026-10-01/02 快照）：</strong>Trailing P/E 约 56–59 ⚠️（Finnhub 56.4 / dailypolitical 59.05，时点差异）；Forward P/E 29.0（marketbeat）；Beta 1.85–1.94；50 日均线约 $305、200 日均线约 $300，均低于现价，趋势仍在均线之上；ROE 67.6%、D/E 0.30、机构持股 84.61%（marketbeat）。</p>
-        <p><strong>财报后反应：</strong>Q4 FY2026 于 2026-07-29 发布，营收与指引双超预期，次日（07-30）股价 <strong>+17.98%</strong> 至 $297.72。</p>
-        <p><strong>行业背景（管理层口径）：</strong>2026-09 CFO 在 Citi TMT 会议上将 2026 年全球 WFE（晶圆厂设备）支出展望从 $135–140B 上调至 <strong>low-$150B</strong>，称行业处于 undersupply；行业预测 2026 年 WFE 支出 +16.9% 至 $135.2B，DRAM / NAND 投资增速更快（AI / HBM 驱动）。</p>
-        <p>数据来源：tickeron、simplywall.st、bingx、cointime、marketbeat 多源交叉（财报核心数字）；估值与均线为 2026-10-01/02 快照。</p>
+        <h3>业务部门与 HBM</h3>
+        <p><strong>CNBU（Compute and Networking，核心数据中心）$18.002B（33%，+1,042% YoY，营业利润率 85%）；CMBU（Cloud Memory）$16.283B（30%，+258% YoY，营业利润率 76%）。</strong>MBU / EBU / SBU 其余 ~$20B（~37%），均创纪录 ⚠️（分部门明细未完全披露，dashboard 不编造）。</p>
+        <p><strong>HBM：</strong>增速超公司整体；2027 年 HBM 产能“绝大部分”已签约、价格显著高于去年；HBM4 收入已破 $10 亿（Q3 起），2027–2028 售罄。2027 年超 75% 产能已锁定，大部分谈判已转向 2028 年（mexc / biggo）。</p>
+        <p>数据来源：Micron 官方财报（经 thelec.net、trendforce.com、techtimes.com、finance.biggo.com、gamebastion.com、mexc.com 交叉核实）；指引/分红/回购：marketbeat.com、stocktwits.com。</p>
       </article>
     </section>
 
     <section class="section" id="short">
       <div class="section-head"><h2>做空数据</h2><span class="section-index">03 / SHORT</span></div>
       <div class="data-grid">
-        <div class="datum"><span class="k">Short interest</span><span class="v">26,081,081 股</span><span class="k">结算日 2026-09-15 · FINRA，经 MarketBeat 汇总</span></div>
-        <div class="datum"><span class="k">空头变化（半月）</span><span class="v pos">−6.02%</span><span class="k">上期 27,751,158 股（结算 8/31）· FINRA</span></div>
-        <div class="datum"><span class="k">Short % of float</span><span class="v">2.09%</span><span class="k">流通股本 1,251,420,000 股 · FINRA / MarketBeat</span></div>
-        <div class="datum"><span class="k">Days to cover</span><span class="v">3.1 天</span><span class="k">短期回补压力有限 · FINRA / MarketBeat</span></div>
+        <div class="datum"><span class="k">Short interest</span><span class="v">27,633,780 股</span><span class="k">结算日 2026-09-15 · FINRA，经 MarketBeat 汇总；finviz 一致</span></div>
+        <div class="datum"><span class="k">空头变化</span><span class="v pos">−7.0%</span><span class="k">上期 29,710,000 股（2026-08-31）/ 2.64% · finviz，本期环比下降，空头呈下降趋势</span></div>
+        <div class="datum"><span class="k">Short % of float</span><span class="v">2.45%</span><span class="k">marketbeat / finviz 一致</span></div>
+        <div class="datum"><span class="k">Days to cover</span><span class="v">~1.1 天</span><span class="k">marketbeat 口径（finviz 0.69 天，按 40.34M 日均量，口径差异，本页用 marketbeat 口径并标注）</span></div>
         <div class="datum"><span class="k">借券利用率 / 借券费率</span><span class="v"><span class="tag unavailable">无免费公开源</span></span><span class="k">无法查证 · 本页仅呈现 FINRA 数据，不估算费率</span></div>
       </div>
-      <div class="source-note" style="margin-top:12px"><strong>统计口径：</strong>marketbeat 部分新闻模板页曾显示“September short interest was zero shares”并自注数据不可靠；本页以其 short-interest 专题页的 2026-09-15 结算数据为准。Webull 显示的 33.33M 股 / 2.97% 为更早结算期口径，未采用。借券利用率与实时借券费率无免费公开数据源，无法呈现或估算，实际做空成本以券商实时 locate 报价为准。<a class="cite" href="https://www.marketbeat.com/stocks/NASDAQ/LRCX/short-interest/" target="_blank" rel="noreferrer">MARKETBEAT SHORT INTEREST ↗</a></div>
+      <div class="source-note" style="margin-top:12px"><strong>统计口径：</strong>4–5 月曾有第三方文章称空头升至 ~37.3M 股（3.32%），为春季旧数据；当前 27.63M 为 9/15 最新结算，空头呈下降趋势。借券利用率与实时借券费率无免费公开数据源，无法呈现或估算，实际做空成本以券商实时 locate 报价为准。<a class="cite" href="https://www.MarketBeat.com/stocks/NASDAQ/MU/short-interest/" target="_blank" rel="noreferrer">MARKETBEAT SHORT INTEREST ↗</a></div>
     </section>
 
     <section class="section" id="analysts">
       <div class="section-head"><h2>分析师评级</h2><span class="section-index">04 / ANALYSTS</span></div>
       <div class="data-grid" style="margin-bottom:12px">
-        <div class="datum"><span class="k">评级共识</span><span class="v">Moderate Buy</span><span class="k">32 家覆盖：26 Buy + 1 Strong Buy + 5 Hold（marketbeat，2026-10-01）</span></div>
-        <div class="datum"><span class="k">目标价均值</span><span class="v">≈$361.81</span><span class="k">最高 $500 / 最低 $184.20；transcriptdaily 10/01 口径均值 $363.14</span></div>
-        <div class="datum"><span class="k">预期差提示</span><span class="v pos">均值隐含约 +6.4% 上行空间</span><span class="k">现价 $340.10 已接近均值；最高目标价 $480–500 一侧分歧明显（现价为自 2026-08 以来反弹高位区）</span></div>
-        <div class="datum"><span class="k">来源</span><span class="v"><a class="cite" href="https://www.marketbeat.com/stocks/NASDAQ/LRCX/forecast/" target="_blank" rel="noreferrer">MARKETBEAT FORECAST ↗</a></span><span class="k">目标价与评级聚合</span></div>
+        <div class="datum"><span class="k">评级共识</span><span class="v">Buy</span><span class="k">约 40–49 家覆盖；38–40 Buy + 5 Hold + 0 Sell（MarketBeat / clearank / ultrastockanalysispro 口径略异）</span></div>
+        <div class="datum"><span class="k">目标价均值</span><span class="v">≈$1,348–1,564</span><span class="k">MarketBeat 均值约 $1,348–1,378；TipRanks（9/21，30 家）均值 $1,564.44；clearank（10/01，49 家）均值 $1,545</span></div>
+        <div class="datum"><span class="k">反方参考</span><span class="v">Morningstar $850</span><span class="k">2 星（偏贵）、无护城河，公允价值 $850（6 月由 $455 上调），为少数谨慎派</span></div>
+        <div class="datum"><span class="k">来源</span><span class="v"><a class="cite" href="https://www.marketbeat.com/stocks/NASDAQ/MU/forecast/" target="_blank" rel="noreferrer">MARKETBEAT FORECAST ↗</a></span><span class="k">目标价与评级聚合；单家明细见下表，⚠️ 项保持标注</span></div>
       </div>
       <div class="panel" style="padding:2px 18px 10px">
-        <div class="tl-sub" style="border-top:0;margin-top:0;padding-top:16px">目标价 ladder<span>基准：2026-10-01 收盘 $340.10（蓝色竖线）· 涨跌幅相对现价计算 · 18 家机构</span></div>
+        <div class="tl-sub" style="border-top:0;margin-top:0;padding-top:16px">目标价 ladder<span>基准：2026-10-01 收盘 $1,097.39（蓝线）· 涨跌幅相对现价计算 · 21 家机构</span></div>
         <div class="pt-list">
-          <div class="pt-row"><span class="pt-firm">Bank of America<em>Buy · $330→$480 · 2026-06-23 ⚠️单源</em></span><div class="pt-track"><div class="pt-bar up" style="width:100%"></div><div class="pt-baseline" style="left:70.9%"></div></div><span class="pt-val">$480<em class="pos">+41.1%</em></span></div>
-          <div class="pt-row"><span class="pt-firm">Susquehanna<em>Positive · $385→$475 · 2026-06-30</em></span><div class="pt-track"><div class="pt-bar up" style="width:99.0%"></div><div class="pt-baseline" style="left:70.9%"></div></div><span class="pt-val">$475<em class="pos">+39.7%</em></span></div>
-          <div class="pt-row"><span class="pt-firm">Citigroup<em>Buy · $315→$450 · 2026-06-17</em></span><div class="pt-track"><div class="pt-bar up" style="width:93.8%"></div><div class="pt-baseline" style="left:70.9%"></div></div><span class="pt-val">$450<em class="pos">+32.3%</em></span></div>
-          <div class="pt-row"><span class="pt-firm">Raymond James<em>评级未注明 · 2026-06-10</em></span><div class="pt-track"><div class="pt-bar up" style="width:88.5%"></div><div class="pt-baseline" style="left:70.9%"></div></div><span class="pt-val">$425<em class="pos">+25.0%</em></span></div>
-          <div class="pt-row"><span class="pt-firm">Stifel Nicolaus<em>Buy · $325→$425 · 2026-07-10</em></span><div class="pt-track"><div class="pt-bar up" style="width:88.5%"></div><div class="pt-baseline" style="left:70.9%"></div></div><span class="pt-val">$425<em class="pos">+25.0%</em></span></div>
-          <div class="pt-row"><span class="pt-firm">UBS<em>Buy · $435→$425 · 2026-09-01</em></span><div class="pt-track"><div class="pt-bar up" style="width:88.5%"></div><div class="pt-baseline" style="left:70.9%"></div></div><span class="pt-val">$425<em class="pos">+25.0%</em></span></div>
-          <div class="pt-row"><span class="pt-firm">Rothschild &amp; Co Redburn<em>Buy · $305→$420 · 2026-06-17</em></span><div class="pt-track"><div class="pt-bar up" style="width:87.5%"></div><div class="pt-baseline" style="left:70.9%"></div></div><span class="pt-val">$420<em class="pos">+23.5%</em></span></div>
-          <div class="pt-row"><span class="pt-firm">Berenberg<em>Buy · 首次覆盖 · 2026-09-09</em></span><div class="pt-track"><div class="pt-bar up" style="width:87.5%"></div><div class="pt-baseline" style="left:70.9%"></div></div><span class="pt-val">$420<em class="pos">+23.5%</em></span></div>
-          <div class="pt-row"><span class="pt-firm">TD Cowen<em>Buy · $340→$400 · 2026-07-09</em></span><div class="pt-track"><div class="pt-bar up" style="width:83.3%"></div><div class="pt-baseline" style="left:70.9%"></div></div><span class="pt-val">$400<em class="pos">+17.6%</em></span></div>
-          <div class="pt-row"><span class="pt-firm">Oppenheimer<em>Outperform · $330→$400 · 2026-06-15</em></span><div class="pt-track"><div class="pt-bar up" style="width:83.3%"></div><div class="pt-baseline" style="left:70.9%"></div></div><span class="pt-val">$400<em class="pos">+17.6%</em></span></div>
-          <div class="pt-row"><span class="pt-firm">B. Riley<em>Buy · $350→$390 · 2026-10-01</em></span><div class="pt-track"><div class="pt-bar up" style="width:81.3%"></div><div class="pt-baseline" style="left:70.9%"></div></div><span class="pt-val">$390<em class="pos">+14.7%</em></span></div>
-          <div class="pt-row"><span class="pt-firm">Morgan Stanley<em>Overweight · $404→$367 · 2026-07-30</em></span><div class="pt-track"><div class="pt-bar up" style="width:76.5%"></div><div class="pt-baseline" style="left:70.9%"></div></div><span class="pt-val">$367<em class="pos">+7.9%</em></span></div>
-          <div class="pt-row"><span class="pt-firm">Mizuho<em>Outperform · $370→$365 · 2026-08-25</em></span><div class="pt-track"><div class="pt-bar up" style="width:76.0%"></div><div class="pt-baseline" style="left:70.9%"></div></div><span class="pt-val">$365<em class="pos">+7.3%</em></span></div>
-          <div class="pt-row avg"><span class="pt-firm">覆盖机构目标价均值<em>marketbeat，32 家 · 2026-10-01</em></span><div class="pt-track"><div class="pt-bar" style="width:75.4%"></div><div class="pt-baseline" style="left:70.9%"></div></div><span class="pt-val">$361.81<em class="pos">+6.4%</em></span></div>
-          <div class="pt-row"><span class="pt-firm">Evercore<em>Outperform · 重申 · 2026-07-20</em></span><div class="pt-track"><div class="pt-bar up" style="width:74.0%"></div><div class="pt-baseline" style="left:70.9%"></div></div><span class="pt-val">$355<em class="pos">+4.4%</em></span></div>
-          <div class="pt-row"><span class="pt-firm">Wells Fargo<em>Overweight · $450→$350 · 2026-07-30</em></span><div class="pt-track"><div class="pt-bar up" style="width:72.9%"></div><div class="pt-baseline" style="left:70.9%"></div></div><span class="pt-val">$350<em class="pos">+2.9%</em></span></div>
-          <div class="pt-row"><span class="pt-firm">Barclays<em>Overweight · $275→$335 · 2026-06-11</em></span><div class="pt-track"><div class="pt-bar down" style="width:69.8%"></div><div class="pt-baseline" style="left:70.9%"></div></div><span class="pt-val">$335<em class="neg">−1.5%</em></span></div>
-          <div class="pt-row"><span class="pt-firm">HSBC<em>Hold · 重申 · 2026-07-27</em></span><div class="pt-track"><div class="pt-bar down" style="width:69.4%"></div><div class="pt-baseline" style="left:70.9%"></div></div><span class="pt-val">$333<em class="neg">−2.1%</em></span></div>
-          <div class="pt-row"><span class="pt-firm">Deutsche Bank<em>Buy · 重申 · 2026-07-30</em></span><div class="pt-track"><div class="pt-bar down" style="width:66.7%"></div><div class="pt-baseline" style="left:70.9%"></div></div><span class="pt-val">$320<em class="neg">−5.9%</em></span></div>
+          <div class="pt-row"><span class="pt-firm">Melius Research<em>⚠️评级未找到 · 财报前研报 ⚠️</em></span><div class="pt-track"><div class="pt-bar up" style="width:100%"></div><div class="pt-baseline" style="left:49.9%"></div></div><span class="pt-val">$2,200<em class="pos">+100.5%</em></span></div>
+          <div class="pt-row"><span class="pt-firm">D.A. Davidson<em>Buy · 2026-10-01 新设 ⚠️（“Street 新高”与 Melius 冲突）</em></span><div class="pt-track"><div class="pt-bar up" style="width:95.5%"></div><div class="pt-baseline" style="left:49.9%"></div></div><span class="pt-val">$2,100<em class="pos">+91.4%</em></span></div>
+          <div class="pt-row"><span class="pt-firm">Susquehanna<em>Positive · 2026-06-25 由 $1,750 上调</em></span><div class="pt-track"><div class="pt-bar up" style="width:90.9%"></div><div class="pt-baseline" style="left:49.9%"></div></div><span class="pt-val">$2,000<em class="pos">+82.3%</em></span></div>
+          <div class="pt-row"><span class="pt-firm">Barclays<em>Overweight · 2026-06-25 由 $1,175 上调</em></span><div class="pt-track"><div class="pt-bar up" style="width:90.9%"></div><div class="pt-baseline" style="left:49.9%"></div></div><span class="pt-val">$2,000<em class="pos">+82.3%</em></span></div>
+          <div class="pt-row"><span class="pt-firm">Rosenblatt<em>Buy · 2026-10-01 由 $1,500 上调</em></span><div class="pt-track"><div class="pt-bar up" style="width:86.4%"></div><div class="pt-baseline" style="left:49.9%"></div></div><span class="pt-val">$1,900<em class="pos">+73.1%</em></span></div>
+          <div class="pt-row"><span class="pt-firm">TD Cowen<em>Buy · 2026-10-01 维持（9/16 由 $1,500 上调）</em></span><div class="pt-track"><div class="pt-bar up" style="width:72.7%"></div><div class="pt-baseline" style="left:49.9%"></div></div><span class="pt-val">$1,600<em class="pos">+45.8%</em></span></div>
+          <div class="pt-row"><span class="pt-firm">BofA<em>Buy · 近期维持（6/23 由 $950 上调）</em></span><div class="pt-track"><div class="pt-bar up" style="width:70.5%"></div><div class="pt-baseline" style="left:49.9%"></div></div><span class="pt-val">$1,550<em class="pos">+41.2%</em></span></div>
+          <div class="pt-row"><span class="pt-firm">JPMorgan<em>Overweight · 2026-09-28 维持（6/25 由 $550 上调）</em></span><div class="pt-track"><div class="pt-bar up" style="width:70.0%"></div><div class="pt-baseline" style="left:49.9%"></div></div><span class="pt-val">$1,540<em class="pos">+40.3%</em></span></div>
+          <div class="pt-row"><span class="pt-firm">Baird<em>Outperform · 2026-09-29 由 $1,280 上调</em></span><div class="pt-track"><div class="pt-bar up" style="width:69.1%"></div><div class="pt-baseline" style="left:49.9%"></div></div><span class="pt-val">$1,520<em class="pos">+38.5%</em></span></div>
+          <div class="pt-row"><span class="pt-firm">Stifel<em>Buy · 2026-09-21 维持</em></span><div class="pt-track"><div class="pt-bar up" style="width:68.2%"></div><div class="pt-baseline" style="left:49.9%"></div></div><span class="pt-val">$1,500<em class="pos">+36.7%</em></span></div>
+          <div class="pt-row"><span class="pt-firm">Arete Research<em>Buy · 2026-07-21 由 $852 上调</em></span><div class="pt-track"><div class="pt-bar up" style="width:68.2%"></div><div class="pt-baseline" style="left:49.9%"></div></div><span class="pt-val">$1,500<em class="pos">+36.7%</em></span></div>
+          <div class="pt-row"><span class="pt-firm">Mizuho<em>Buy · 2026-09-30 由 $1,300 上调</em></span><div class="pt-track"><div class="pt-bar up" style="width:63.6%"></div><div class="pt-baseline" style="left:49.9%"></div></div><span class="pt-val">$1,400<em class="pos">+27.6%</em></span></div>
+          <div class="pt-row"><span class="pt-firm">Wells Fargo<em>Overweight · 财报前由 $1,525 下调</em></span><div class="pt-track"><div class="pt-bar up" style="width:63.6%"></div><div class="pt-baseline" style="left:49.9%"></div></div><span class="pt-val">$1,400<em class="pos">+27.6%</em></span></div>
+          <div class="pt-row"><span class="pt-firm">Wedbush<em>Outperform · 2026-09-28 维持（6/25 由 $1,300 上调）</em></span><div class="pt-track"><div class="pt-bar up" style="width:63.6%"></div><div class="pt-baseline" style="left:49.9%"></div></div><span class="pt-val">$1,400<em class="pos">+27.6%</em></span></div>
+          <div class="pt-row"><span class="pt-firm">Lynx Research<em>⚠️评级未找到 · 2026-09-08 新设</em></span><div class="pt-track"><div class="pt-bar up" style="width:60.2%"></div><div class="pt-baseline" style="left:49.9%"></div></div><span class="pt-val">$1,325<em class="pos">+20.7%</em></span></div>
+          <div class="pt-row"><span class="pt-firm">Bernstein<em>Buy · 2026-09-29 维持</em></span><div class="pt-track"><div class="pt-bar up" style="width:59.1%"></div><div class="pt-baseline" style="left:49.9%"></div></div><span class="pt-val">$1,300<em class="pos">+18.5%</em></span></div>
+          <div class="pt-row"><span class="pt-firm">Citi<em>Buy · 财报前由 $1,150 上调</em></span><div class="pt-track"><div class="pt-bar up" style="width:59.1%"></div><div class="pt-baseline" style="left:49.9%"></div></div><span class="pt-val">$1,300<em class="pos">+18.5%</em></span></div>
+          <div class="pt-row"><span class="pt-firm">BMO Capital<em>Outperform · 2026-08-21 首次覆盖</em></span><div class="pt-track"><div class="pt-bar up" style="width:59.1%"></div><div class="pt-baseline" style="left:49.9%"></div></div><span class="pt-val">$1,300<em class="pos">+18.5%</em></span></div>
+          <div class="pt-row"><span class="pt-firm">Goldman Sachs<em>Neutral · 2026-10-01 由 $1,100 上调 ⚠️</em></span><div class="pt-track"><div class="pt-bar up" style="width:56.8%"></div><div class="pt-baseline" style="left:49.9%"></div></div><span class="pt-val">$1,250<em class="pos">+13.9%</em></span></div>
+          <div class="pt-row"><span class="pt-firm">New Street Research<em>Buy · 2026-08-14 由 Neutral 上调</em></span><div class="pt-track"><div class="pt-bar up" style="width:56.8%"></div><div class="pt-baseline" style="left:49.9%"></div></div><span class="pt-val">$1,250<em class="pos">+13.9%</em></span></div>
+          <div class="pt-row"><span class="pt-firm">Morgan Stanley<em>Overweight · 2026-09-28 维持</em></span><div class="pt-track"><div class="pt-bar up" style="width:54.5%"></div><div class="pt-baseline" style="left:49.9%"></div></div><span class="pt-val">$1,200<em class="pos">+9.3%</em></span></div>
         </div>
-        <div class="pt-note">条形按目标价相对 $480（最高）缩放，零基线；灰色行为 marketbeat 目标价均值（$361.81）；基准线为 2026-10-01 收盘 $340.10。目标价多为 2026-06~07（Q4 财报前后）更新，距今 2~3 个月；最新动作为 B. Riley 10/01 上调至 $390。BofA $480 仅见于 dailypolitical 单源，已标注 ⚠️；Raymond James 评级未注明（目标价经 transcriptdaily / zolmax 核实）。2026-02 webull 旧表（$83–160）为大涨前数据，已过时，未采用。<a class="cite" href="https://www.marketbeat.com/stocks/NASDAQ/LRCX/forecast/" target="_blank" rel="noreferrer">SOURCE ↗</a></div>
-        <div class="tl-sub">近期评级动作一览<span>按时间倒序 · 完整 18 条</span></div>
-        <div style="padding:0 0 14px">
-          <table class="plain-table">
-            <thead><tr><th>日期</th><th>投行</th><th>动作</th><th>评级</th><th>目标价</th></tr></thead>
-            <tbody>
-              <tr><td data-label="日期">2026-10-01</td><td data-label="投行">B. Riley</td><td data-label="动作">上调</td><td data-label="评级">Buy</td><td data-label="目标价">$350→$390</td></tr>
-              <tr><td data-label="日期">2026-09-09</td><td data-label="投行">Berenberg</td><td data-label="动作">首次覆盖</td><td data-label="评级">Buy</td><td data-label="目标价">$420</td></tr>
-              <tr><td data-label="日期">2026-09-01</td><td data-label="投行">UBS</td><td data-label="动作">下调</td><td data-label="评级">Buy</td><td data-label="目标价">$435→$425</td></tr>
-              <tr><td data-label="日期">2026-08-25</td><td data-label="投行">Mizuho</td><td data-label="动作">下调</td><td data-label="评级">Outperform</td><td data-label="目标价">$370→$365</td></tr>
-              <tr><td data-label="日期">2026-07-30</td><td data-label="投行">Morgan Stanley</td><td data-label="动作">下调</td><td data-label="评级">Overweight</td><td data-label="目标价">$404→$367</td></tr>
-              <tr><td data-label="日期">2026-07-30</td><td data-label="投行">Wells Fargo</td><td data-label="动作">下调</td><td data-label="评级">Overweight</td><td data-label="目标价">$450→$350</td></tr>
-              <tr><td data-label="日期">2026-07-30</td><td data-label="投行">Deutsche Bank</td><td data-label="动作">重申</td><td data-label="评级">Buy</td><td data-label="目标价">$320</td></tr>
-              <tr><td data-label="日期">2026-07-27</td><td data-label="投行">HSBC</td><td data-label="动作">重申</td><td data-label="评级">Hold</td><td data-label="目标价">$333</td></tr>
-              <tr><td data-label="日期">2026-07-20</td><td data-label="投行">Evercore</td><td data-label="动作">重申</td><td data-label="评级">Outperform</td><td data-label="目标价">$355</td></tr>
-              <tr><td data-label="日期">2026-07-10</td><td data-label="投行">Stifel Nicolaus</td><td data-label="动作">上调</td><td data-label="评级">Buy</td><td data-label="目标价">$325→$425</td></tr>
-              <tr><td data-label="日期">2026-07-09</td><td data-label="投行">TD Cowen</td><td data-label="动作">上调</td><td data-label="评级">Buy</td><td data-label="目标价">$340→$400</td></tr>
-              <tr><td data-label="日期">2026-06-30</td><td data-label="投行">Susquehanna</td><td data-label="动作">上调</td><td data-label="评级">Positive</td><td data-label="目标价">$385→$475</td></tr>
-              <tr><td data-label="日期">2026-06-23</td><td data-label="投行">Bank of America</td><td data-label="动作">上调 ⚠️单源</td><td data-label="评级">Buy</td><td data-label="目标价">$330→$480</td></tr>
-              <tr><td data-label="日期">2026-06-17</td><td data-label="投行">Citigroup</td><td data-label="动作">上调</td><td data-label="评级">Buy</td><td data-label="目标价">$315→$450</td></tr>
-              <tr><td data-label="日期">2026-06-17</td><td data-label="投行">Rothschild &amp; Co Redburn</td><td data-label="动作">上调</td><td data-label="评级">Buy</td><td data-label="目标价">$305→$420</td></tr>
-              <tr><td data-label="日期">2026-06-15</td><td data-label="投行">Oppenheimer</td><td data-label="动作">上调</td><td data-label="评级">Outperform</td><td data-label="目标价">$330→$400</td></tr>
-              <tr><td data-label="日期">2026-06-11</td><td data-label="投行">Barclays</td><td data-label="动作">上调</td><td data-label="评级">Overweight</td><td data-label="目标价">$275→$335</td></tr>
-              <tr><td data-label="日期">2026-06-10</td><td data-label="投行">Raymond James</td><td data-label="动作">设定</td><td data-label="评级">—（未注明）</td><td data-label="目标价">$425</td></tr>
-            </tbody>
-          </table>
-        </div>
+        <div class="pt-note">条形按目标价相对 $2,200（最高）缩放，零基线；基准线为 2026-10-01 收盘 $1,097.39。Melius $2,200 与 D.A. Davidson“Street 新高”说法冲突：Melius 目标出自 9/21 前研报，可能已被内部更新或口径不同，dashboard 标注 ⚠️ 并列两家。Goldman $1,250 为 10/01 盘后确认上调（GuruFocus/雅虎），finbold 10/01 晨文仍写 $1,100，标注 ⚠️。反方：Morningstar 2 星，公允价值 $850。<a class="cite" href="https://www.marketbeat.com/stocks/NASDAQ/MU/forecast/" target="_blank" rel="noreferrer">SOURCE ↗</a></div>
       </div>
     </section>
 
@@ -509,57 +471,37 @@
         <div class="tl-sub">即将到来</div>
         <article class="event">
           <div class="event-date">2026-10-14<br /><span class="tag">DIVIDEND</span></div>
-          <div><h3>季度股息派发：$0.33 / 股</h3><p>新季度股息 +27%（$0.26 → $0.33），已于 2026-09-23 除息；年化 $1.32。来源：dailypolitical 等多源。</p></div>
+          <div><h3>季度分红除息日</h3><p>分红 <strong>$0.15/股/季</strong>（$0.60 年化），除息 10/14、派发 10/29。来源：marketbeat。</p></div>
         </article>
         <article class="event">
-          <div class="event-date">2026-10-21<br /><span class="tag">EARNINGS</span> <span class="tag warn">⚠️日期分歧</span></div>
-          <div><h3>Q1 FY2027 财报电话会（盘后）</h3><p>指引为营收 <strong>$8.10B ±$400M</strong>、Non-GAAP EPS <strong>$2.15 ±$0.15</strong>，为下一关键催化剂。日期以 marketbeat / ad-hoc-news 的 <strong>10/21</strong> 为准；OptiView 写 10/25 ⚠️，来源间有分歧。</p></div>
+          <div class="event-date">2026-10-29<br /><span class="tag">DIVIDEND</span></div>
+          <div><h3>季度分红派发日</h3><p>派发 $0.15/股。来源：marketbeat。</p></div>
+        </article>
+        <article class="event">
+          <div class="event-date">2026-11-23<br /><span class="tag warn">⚠️ 口径</span></div>
+          <div><h3>下次财报</h3><p>11/23 下次财报（OptiView 口径 ⚠️，以公司公告为准）。Q1 FY2027 指引：营收 $60–63B、调整后 EPS $37.15–39.15。</p></div>
+        </article>
+        <article class="event">
+          <div class="event-date">2026-12-09<br /><span class="tag">CAPITAL RETURN</span></div>
+          <div><h3>大规模资本回报启动</h3><p>12 月 9 日起启动大规模资本回报计划（CFO Mark Murphy）。来源：公司财报口径，经多源交叉。</p></div>
+        </article>
+        <article class="event">
+          <div class="event-date">持续<br /><span class="tag">HBM4</span></div>
+          <div><h3>HBM4 持续放量</h3><p>HBM4 收入已破 $10 亿（Q3 起），2027–2028 售罄；2027 年超 75% 产能已锁定。</p></div>
         </article>
 
-        <div class="tl-sub">近期已发生<span>2026-07-29 至 2026-10-01 · 按时间倒序</span></div>
+        <div class="tl-sub">近期已发生<span>2026-09-30 至 2026-10-01 · 按时间倒序</span></div>
         <article class="event">
           <div class="event-date">2026-10-01<br /><span class="tag">MARKET</span></div>
-          <div><h3>Micron 财报超预期，设备股普涨，LRCX +3.53%</h3><p>Micron 公布客户承诺约 <strong>$32B</strong>、FY2026 资本开支 $27.37B；Reuters 盘前报道 LRCX / AMAT 各 +1.8%，LRCX 收盘 +3.53% 至 $340.10。板块性 beta，非公司自身消息。来源：Reuters、tradingnews。</p></div>
+          <div><h3>+3.03% 但跑输预期，sell-the-news 讨论</h3><p>FQ4 财报后首个交易日 +3.03%，但市场讨论“AI 乐观已充分定价”，beat 本身不够（tradingnews）。Burry 加空 ⚠️（thestreet 10/01，细节未披露）。</p></div>
         </article>
         <article class="event">
-          <div class="event-date">2026-10-01<br /><span class="tag">ANALYST</span></div>
-          <div><h3>B. Riley 上调目标价 $350 → $390（Buy）</h3><p>为当前最新分析师动作。来源：transcriptdaily、zolmax。</p></div>
+          <div class="event-date">2026-09-30<br /><span class="tag">EARNINGS</span></div>
+          <div><h3>FQ4 财报大超预期＋上调指引</h3><p>盘后发布：营收 $54.23B（+379% YoY）、调整后 EPS $33.42 均超预期；Q1 FY2027 指引营收 $60–63B（高于预期的 $56.77B）。</p></div>
         </article>
         <article class="event">
-          <div class="event-date">2026-09-23<br /><span class="tag">DIVIDEND</span></div>
-          <div><h3>除息：新季度股息 $0.33 / 股</h3><p>股息 +27%，10/14 派发。来源：dailypolitical 等。</p></div>
-        </article>
-        <article class="event">
-          <div class="event-date">2026-09-14<br /><span class="tag">MARKET</span></div>
-          <div><h3>单日 −8.3% 至 $273.49</h3><p>原因未明确，半导体板块情绪走弱（日期按 Nasdaq 日线 298.22 → 273.49 核对；新闻来源 thecerbatgem 发布于 9/16）。</p></div>
-        </article>
-        <article class="event">
-          <div class="event-date">2026-09-09<br /><span class="tag">ANALYST</span></div>
-          <div><h3>Berenberg 首次覆盖 Buy，目标价 $420</h3><p>来源：marketbeat、ad-hoc-news。</p></div>
-        </article>
-        <article class="event">
-          <div class="event-date">2026-09-04<br /><span class="tag">ANALYST</span></div>
-          <div><h3>Weiss Ratings 下调评级至 buy(b-)</h3><p>来源：transcriptdaily。</p></div>
-        </article>
-        <article class="event">
-          <div class="event-date">2026-09<br /><span class="tag warn">单源</span></div>
-          <div><h3>董事 Bethany Mayer 售股 9,557 股</h3><p>约 $3.0M，减持 31.28%；单一内部人售股，基本面证据不足。来源：marketbeat。</p></div>
-        </article>
-        <article class="event">
-          <div class="event-date">2026-09<br /><span class="tag">OUTLOOK</span></div>
-          <div><h3>CFO 于 Citi TMT 会议上调 2026 WFE 展望</h3><p>将 2026 年全球 WFE 支出展望从 $135–140B 上调至 <strong>low-$150B</strong>，称行业根本上处于 undersupply。行业级利好。来源：startupfortune。</p></div>
-        </article>
-        <article class="event">
-          <div class="event-date">2026-09<br /><span class="tag">CONFERENCE</span></div>
-          <div><h3>出席 Goldman Sachs Communacopia + Technology Conference</h3><p>无重大新财务信息披露。来源：americanbankingnews。</p></div>
-        </article>
-        <article class="event">
-          <div class="event-date">2026-08-27<br /><span class="tag">DIVIDEND</span></div>
-          <div><h3>董事会批准季度股息 +27% 至 $0.33 / 股</h3><p>来源：startupfortune 等 5 源。</p></div>
-        </article>
-        <article class="event">
-          <div class="event-date">2026-07-29<br /><span class="tag">EARNINGS</span></div>
-          <div><h3>Q4 FY2026 财报超预期，次日 +17.98%</h3><p>营收 $6.72B（+30% YoY）、Non-GAAP EPS $1.82 超共识 $1.69；Q1 FY2027 指引远超共识，次日收盘 +17.98% 至 $297.72。来源：多源交叉。</p></div>
+          <div class="event-date">持续<br /><span class="tag warn">⚠️ 诉讼</span></div>
+          <div><h3>Netlist 专利诉讼持续</h3><p>Netlist 专利诉讼持续（asianetnews）。</p></div>
         </article>
       </div>
     </section>
@@ -568,11 +510,10 @@
       <div class="section-head"><h2>为什么关注<span class="view-flag">观点 · 非事实</span></h2><span class="section-index">06 / THESIS</span></div>
       <article class="card">
         <ul class="thesis-list">
-          <li><span class="num">01</span><div><h4>WFE 上行周期：管理层把 2026 年行业支出展望上调至 low-$150B<span class="view-flag">观点</span></h4><p>CFO 于 2026-09 Citi TMT 会议称行业处于 undersupply、clean room 是瓶颈；行业预测 2026 年 WFE +16.9% 至 $135.2B，DRAM / NAND 投资增速更快，Lam 的存储敞口直接受益。</p></div></li>
-          <li><span class="num">02</span><div><h4>指引大幅超共识：Q1 FY2027 营收指引 $8.10B vs 共识约 $7.0B<span class="view-flag">观点</span></h4><p>Q4 FY2026 营收 $6.72B（+30% YoY）、Non-GAAP EPS $1.82 超共识 $1.69，指引 EPS $2.15 ±$0.15 亦远高于当时共识约 $1.81；财报次日股价 +17.98%，10/21 财报为兑现验证点。</p></div></li>
-          <li><span class="num">03</span><div><h4>服务收入连续三季创纪录，装机量变现加速<span class="view-flag">观点</span></h4><p>Customer Support 营收 $2.47B（+42.6% YoY），拉动 Non-GAAP 毛利率 52.0%（20 年单季新高）与经营利润率 38.4%，收入质量与可见度提升。</p></div></li>
-          <li><span class="num">04</span><div><h4>股东回报纪律：股息 +27%、连续 10 年增息<span class="view-flag">观点</span></h4><p>FY2026 股东回报 $5.12B（回购 + 股息）；新季度股息 $0.33 于 10/14 派发。D/E 0.30、ROE 67.6%，资产负债表稳健。</p></div></li>
-          <li><span class="num">05</span><div><h4>分析师共识仍在现价上方，但空间已收窄<span class="view-flag">观点</span></h4><p>32 家覆盖 Moderate Buy，均值 $361.81 隐含约 +6.4%；高目标价一侧（BofA $480 ⚠️单源、Susquehanna $475）与低侧（Deutsche $320）分歧大，且多数目标价为 2026-06~07 更新，需等 10/21 财报后新一轮修订。</p></div></li>
+          <li><span class="num">01</span><div><h4>AI 内存超级周期：HBM 售罄至 2028，$150B 合同 backlog<span class="view-flag">观点</span></h4><p>HBM 售罄至 2028、$150B 剩余履约义务超全年营收，行业从周期性转向“合同锁定”结构（trendforce：35% 的 2030 年收入已签约）；2027 年超 75% 产能已锁定。</p></div></li>
+          <li><span class="num">02</span><div><h4>定价权：DRAM/NAND 双涨价，供给 2027–2028 持续紧张<span class="view-flag">观点</span></h4><p>DRAM ASP 环比涨 high-teens %、NAND ASP +30%；CEO 称 2027/2028 比 2026 更紧。FQ4 调整后毛利率 87.0%，定价权已体现在利润率。</p></div></li>
+          <li><span class="num">03</span><div><h4>去周期化论：业务正变得不那么周期性<span class="view-flag">观点</span></h4><p>Gerber Kawasaki 称“业务正变得不那么周期性”；$32B take-or-pay 长约 + $150B backlog 为收入可见度提供支撑，但周期本质是否已除仍有争议（见风险）。</p></div></li>
+          <li><span class="num">04</span><div><h4>分析师共识远高于现价：均值 $1,348–1,564<span class="view-flag">观点</span></h4><p>约 40–49 家覆盖，38–40 Buy + 5 Hold + 0 Sell；财报后 D.A. Davidson $2,100、Rosenblatt $1,900、Goldman $1,250 等上调，但目标价分歧大且 ⚠️ 项需逐项看。</p></div></li>
         </ul>
       </article>
     </section>
@@ -581,32 +522,32 @@
       <div class="section-head"><h2>主要风险</h2><span class="section-index">07 / RISKS</span></div>
       <article class="card">
         <ul class="risk-list">
-          <li><span class="num">01</span><div><h4>估值已高：Trailing P/E 约 56–59，预期打满</h4><p>现价 $340.10 对应 Forward P/E 29.0（marketbeat），全年股价区间 $131.02–$438.50 大幅波动后处于反弹高位区；10/21 财报若未达 $8.10B 指引中枢，估值回撤风险显著。</p></div></li>
-          <li><span class="num">02</span><div><h4>中国收入敞口与出口管制</h4><p>中国区收入占比 26%（3 月季度为 34%），出口管制收紧为实质风险因素，可能直接影响 Systems 出货与服务收入。</p></div></li>
-          <li><span class="num">03</span><div><h4>高波动：Beta 约 1.85–1.94，板块 beta 主导短线</h4><p>9 月曾出现单日 −8.3%；10/01 +3.53% 主要来自 Micron 财报的板块联动而非公司自身消息。期权隐含预期波幅 ±15.7%、IV Rank 62/100，财报前后波动定价偏高。</p></div></li>
-          <li><span class="num">04</span><div><h4>期权结构：现价正压 Call Wall $340</h4><p>净做市商 GEX 为正（约 +$70.2M）呈钉价倾向，但 10/01 收盘 $340.10 与 Call Wall $340 几乎重合、Max Pain $280 远在下方；10/21 财报为最近到期结构之外的最大变量，关键位将随到期滚动变化。</p></div></li>
-          <li><span class="num">05</span><div><h4>内部人售股信号（弱）</h4><p>董事 Bethany Mayer 于 2026-09 售股 9,557 股（约 $3.0M，减持 31.28%）；单一内部人交易，基本面证据不足，仅作观察项。</p></div></li>
+          <li><span class="num">01</span><div><h4>预期透支：财报超预期但股价首日仅 +3%</h4><p>tradingnews 指“AI 乐观已充分定价”，beat 本身不够；YTD +275–284%、1 年 +~500% 后，利好已部分定价，后续需靠指引兑现而非单纯超预期。</p></div></li>
+          <li><span class="num">02</span><div><h4>供给约束反噬：长约 + 产能瓶颈可能限制出货增速</h4><p>$32B 长约 + 产能瓶颈可能限制出货增长，增速放缓风险（fxleaders）；FY27 上半年资本开支 ~$25B 的投放节奏决定供给释放。</p></div></li>
+          <li><span class="num">03</span><div><h4>周期本质未除：2028–2029 集中产能释放或致供给过剩</h4><p>Morningstar（2 星，公允价值 $850）警告 2028–2029 集中产能释放或致供给过剩；这是与“去周期化论”直接对立的核心分歧。</p></div></li>
+          <li><span class="num">04</span><div><h4>估值处历史高位：P/B 12.3，P/E 23.86</h4><p>P/B 12.3（12 个月均值 8.86），P/E 23.86，处于历史高位区间（finnhub 快照）；Beta 2.36，波动放大特征明显。</p></div></li>
+          <li><span class="num">05</span><div><h4>中国厂商长期扩产 + 知名空头加仓</h4><p>中国厂商长期扩产风险（Goldman 指出）；Michael Burry 加大空头押注（thestreet 10/01，细节未披露 ⚠️）；Netlist 专利诉讼持续。</p></div></li>
         </ul>
       </article>
     </section>
 
-    <section class="source-note"><strong>研究完整性（数据基准日 2026-10-01，调研日期 2026-10-02）：</strong>图表与图内统计直接按 Nasdaq 官方历史 API 的 64 个交易日收盘序列绘制，未复权口径（9/23 除息 $0.33）；收盘价与 quote API、Finnhub、marketbeat 交叉确认，09-30 收盘 OptiView 页眉 $328.69 与 Nasdaq $328.51 有 $0.18（0.05%）出入，以 Nasdaq 官方为准。52 周低点口径：Nasdaq $131.02、OptiView $131.35、Finnhub $126.37，以 Nasdaq 官方为准并已标注。FINRA 做空为 2026-09-15 结算期（最新已发布）。Trailing P/E 56.4（Finnhub）与 59.05（dailypolitical）为时点差异，并列标注。Q1 FY2027 财报日期 marketbeat / ad-hoc-news 为 10/21 盘后、OptiView 为 10/25 ⚠️，并列标注。30 天 ATM IV FlashAlpha 53.6% 与 OptiView 62.7% 为口径 / 时点差异，并列标注。BofA $480 目标价为 dailypolitical 单源，已标注 ⚠️。借券利用率与借券费率无免费公开源，未呈现也未估算。单源数据已在相应条目逐项标注。</section>
+    <section class="source-note"><strong>研究完整性（数据基准日 2026-10-01，调研日期 2026-10-02）：</strong>图表与图内统计直接按机器可读日收盘序列（Nasdaq 官方历史 API 64 个交易日，2026-07-02 至 2026-10-01）绘制。52 周区间各源口径不一（Nasdaq 165.50–1,255.00；OptiView 181.44–1,203.64），本页采用 Nasdaq 官方口径并标注 ⚠️。Melius $2,200 与 D.A. Davidson“Street 新高”冲突、Goldman $1,250 时点、11/23 财报日期（OptiView 口径）、MBU/EBU/SBU 分部门明细未完全披露、Burry 加空细节未披露等 ⚠️ 项均保持标注、不编造。FINRA 做空为 2026-09-15 结算期。借券利用率与借券费率无免费公开源，未呈现也未估算。单源数据已在相应条目逐项标注。</section>
 
     <footer>价格卡可刷新实时报价；其余为截至 2026-10-01 美股收盘的静态研究快照，不构成证券研究报告或投资建议。引用链接打开第三方原始页面。</footer>
   </main>
 
   <script>
     (function () {
-      // 日收盘序列（Nasdaq 官方历史 API，2026-07-02 至 2026-10-01 共 64 个交易日），按调研目录机器可读序列逐字录入。
-      var data = [['2026-07-02',351.41],['2026-07-06',350.20],['2026-07-07',326.13],['2026-07-08',333.15],['2026-07-09',353.17],['2026-07-10',350.33],['2026-07-13',329.92],['2026-07-14',346.10],['2026-07-15',335.43],['2026-07-16',320.96],['2026-07-17',313.30],['2026-07-20',306.76],['2026-07-21',322.00],['2026-07-22',319.29],['2026-07-23',319.78],['2026-07-24',305.21],['2026-07-27',291.61],['2026-07-28',269.61],['2026-07-29',252.35],['2026-07-30',297.72],['2026-07-31',293.02],['2026-08-03',294.61],['2026-08-04',317.74],['2026-08-05',307.42],['2026-08-06',305.77],['2026-08-07',311.35],['2026-08-10',306.40],['2026-08-11',311.41],['2026-08-12',326.11],['2026-08-13',337.01],['2026-08-14',332.36],['2026-08-17',343.84],['2026-08-18',327.92],['2026-08-19',307.17],['2026-08-20',310.53],['2026-08-21',314.00],['2026-08-24',310.17],['2026-08-25',314.66],['2026-08-26',312.88],['2026-08-27',318.58],['2026-08-28',301.90],['2026-08-31',301.49],['2026-09-01',290.20],['2026-09-02',288.32],['2026-09-03',292.66],['2026-09-04',307.65],['2026-09-08',320.42],['2026-09-09',315.84],['2026-09-10',298.01],['2026-09-11',298.22],['2026-09-14',273.49],['2026-09-15',270.87],['2026-09-16',269.23],['2026-09-17',269.31],['2026-09-18',288.11],['2026-09-21',302.28],['2026-09-22',310.96],['2026-09-23',307.28],['2026-09-24',307.16],['2026-09-25',315.21],['2026-09-28',314.47],['2026-09-29',323.86],['2026-09-30',328.51],['2026-10-01',340.10]];
+      var data = [['2026-07-02',975.56],['2026-07-06',984.75],['2026-07-07',938.38],['2026-07-08',948.80],['2026-07-09',991.64],['2026-07-10',979.30],['2026-07-13',937.00],['2026-07-14',983.12],['2026-07-15',904.28],['2026-07-16',853.20],['2026-07-17',848.95],['2026-07-20',865.46],['2026-07-21',970.82],['2026-07-22',959.48],['2026-07-23',990.21],['2026-07-24',920.95],['2026-07-27',900.20],['2026-07-28',820.53],['2026-07-29',739.00],['2026-07-30',874.66],['2026-07-31',823.03],['2026-08-03',829.50],['2026-08-04',892.67],['2026-08-05',893.19],['2026-08-06',881.47],['2026-08-07',877.57],['2026-08-10',861.00],['2026-08-11',868.52],['2026-08-12',911.29],['2026-08-13',949.83],['2026-08-14',971.66],['2026-08-17',1011.75],['2026-08-18',940.76],['2026-08-19',937.11],['2026-08-20',974.33],['2026-08-21',966.78],['2026-08-24',910.43],['2026-08-25',932.97],['2026-08-26',938.40],['2026-08-27',935.39],['2026-08-28',932.86],['2026-08-31',958.73],['2026-09-01',933.44],['2026-09-02',956.08],['2026-09-03',958.16],['2026-09-04',1016.59],['2026-09-08',1000.26],['2026-09-09',1027.77],['2026-09-10',977.41],['2026-09-11',975.26],['2026-09-14',924.03],['2026-09-15',927.60],['2026-09-16',926.55],['2026-09-17',977.50],['2026-09-18',1015.80],['2026-09-21',1043.96],['2026-09-22',1096.16],['2026-09-23',1071.88],['2026-09-24',1080.53],['2026-09-25',1082.28],['2026-09-28',1053.98],['2026-09-29',1065.08],['2026-09-30',1065.11],['2026-10-01',1097.39]];
       var svg = document.getElementById('priceChart');
       var readout = document.getElementById('chartReadout');
       var stats = document.getElementById('chartStats');
       var buttons = document.querySelectorAll('[data-range]');
       var markers = [
-        {d:'2026-07-30', label:'财报后 +17.98%'},
-        {d:'2026-09-14', label:'单日 −8.3%'},
-        {d:'2026-10-01', label:'Micron 联动 +3.53%', anchor:'end', dx:-8}
+        {d:'2026-07-29', label:'区间低点 $739'},
+        {d:'2026-09-04', label:'突破 $1,000'},
+        {d:'2026-09-30', label:'FQ4 财报发布'},
+        {d:'2026-10-01', label:'财报后 +3.03%', anchor:'end', dx:-8}
       ];
       var active = 'all', visible = data, state = null;
       function parseDate(v) { return new Date(v + 'T00:00:00Z').getTime(); }
@@ -629,19 +570,16 @@
         var area = path+' L '+x(visible.length-1).toFixed(2)+','+(H-b)+' L '+x(0).toFixed(2)+','+(H-b)+' Z';
         var idx = {}; visible.forEach(function (d,i){ idx[d[0]] = i; });
         var out = '<defs><linearGradient id="areaFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="var(--chart)" stop-opacity=".28"/><stop offset="100%" stop-color="var(--chart)" stop-opacity="0"/></linearGradient></defs>';
-        // y gridlines
         for (var j=0;j<5;j++){
           var tv = yMin+(yMax-yMin)*(4-j)/4, yy = t+(H-t-b)*j/4;
           out += '<line x1="'+l+'" y1="'+yy+'" x2="'+(W-r)+'" y2="'+yy+'" stroke="var(--line)" stroke-width="1"/>';
           out += text(l-10, yy+4, '$'+Math.round(tv), 'end');
         }
-        // x ticks
         var ticks = [0, Math.floor((visible.length-1)/3), Math.floor((visible.length-1)*2/3), visible.length-1];
         ticks.forEach(function (i,k){
           var a = k===0?'start':(k===3?'end':'middle');
           out += text(x(i), H-14, visible[i][0].slice(5), a);
         });
-        // event markers
         markers.forEach(function (m, k){
           if (!(m.d in idx)) return;
           var i = idx[m.d], px = x(i), py = y(visible[i][1]);
@@ -653,7 +591,6 @@
         });
         out += '<path d="'+area+'" fill="url(#areaFill)"/>';
         out += '<path d="'+path+'" fill="none" stroke="var(--chart)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>';
-        // min / max dots (computed from visible data)
         var iMin=0, iMax=0;
         vals.forEach(function (v,i){ if (v<vals[iMin]) iMin=i; if (v>vals[iMax]) iMax=i; });
         out += '<circle cx="'+x(iMin)+'" cy="'+y(vals[iMin])+'" r="4" fill="var(--danger)" stroke="var(--surface)" stroke-width="1.6"/>';
@@ -664,7 +601,6 @@
         out += '<circle id="cursorDot" cx="0" cy="0" r="5" fill="var(--surface)" stroke="var(--chart)" stroke-width="3" opacity="0"/>';
         svg.innerHTML = out;
         state = {W:W,l:l,r:r,t:t,b:b,minT:minT,maxT:maxT,y:y,x:x};
-        // stats line (computed from visible data)
         var low = visible[iMin], high = visible[iMax];
         var first = visible[0][1], last = visible[visible.length-1][1];
         var chg = (last-first)/first*100;
@@ -673,7 +609,7 @@
           '<span>收盘低 <b style="color:var(--danger)">$'+low[1].toFixed(2)+' · '+low[0].slice(2)+'</b></span>' +
           '<span>收盘高 <b style="color:var(--chart)">$'+high[1].toFixed(2)+' · '+high[0].slice(2)+'</b></span>' +
           '<span>首尾变化 <b class="'+(chg>=0?'pos':'neg')+'">'+sign+chg.toFixed(1)+'%</b></span>';
-        svg.setAttribute('aria-label','LRCX 自 '+visible[0][0]+' 至 '+visible[visible.length-1][0]+' 每日收盘价折线图：收盘低 $'+low[1].toFixed(2)+'（'+low[0]+'），收盘高 $'+high[1].toFixed(2)+'（'+high[0]+'），首尾变化 '+sign+chg.toFixed(1)+'%');
+        svg.setAttribute('aria-label','MU 自 '+visible[0][0]+' 至 '+visible[visible.length-1][0]+' 每日收盘价折线图：收盘低 $'+low[1].toFixed(2)+'（'+low[0]+'），收盘高 $'+high[1].toFixed(2)+'（'+high[0]+'），首尾变化 '+sign+chg.toFixed(1)+'%');
       }
       function onMove(evt) {
         if (!state) return;
@@ -723,13 +659,13 @@
     })();
   </script>
 
-  <!-- 实时行情刷新：quote.json 快照 → Nasdaq 直连 → Yahoo → Stooq（lrcx.us） -->
+  <!-- 实时行情刷新：quote.json 快照 → Nasdaq 直连 → Yahoo → Stooq（mu.us） -->
   <script>
     (function () {
       /* ===== 实时行情刷新（仅更新价格卡；财务/做空/分析师/事件保持静态快照） =====
          quote.json 标准格式（由 GitHub Actions 每 15 分钟依据 Nasdaq 官方 API 写入本页同目录）：
-         { "symbol":"LRCX", "price":340.10, "netChange":11.59, "pctChange":3.53,
-           "prevClose":328.51, "quoteTime":"2026-10-01 12:05", "status":"intraday", "source":"Nasdaq" }
+         { "symbol":"MU", "price":1097.39, "netChange":32.28, "pctChange":3.03,
+           "prevClose":1065.11, "quoteTime":"2026-10-01 12:05", "status":"intraday", "source":"Nasdaq" }
          字段宽容：price 也可叫 lastSalePrice；pctChange 也可叫 percentageChange；
          quoteTime 也可叫 quoteTimeET / lastTradeTimestamp；status 接受 intraday/close/premarket/postmarket。 */
       var btn = document.getElementById('refreshQuote');
@@ -780,7 +716,7 @@
         var o = etParts(new Date());
         if (o.weekday === 'Sat' || o.weekday === 'Sun') return false;
         var mins = parseInt(o.hour, 10) * 60 + parseInt(o.minute, 10);
-        return mins >= 570 && mins <= 960; // 美东周一至周五 9:30–16:00
+        return mins >= 570 && mins <= 960;
       }
       function statusFromClock() { return inMarketHours() ? 'intraday' : 'close'; }
       function statusText(s) {
@@ -788,7 +724,6 @@
       }
       function cleanCSV(s) { return String(s || '').replace(/"/g, '').trim(); }
 
-      /* --- 1) quote.json（GitHub Actions 定时快照，同目录） --- */
       function loadQuoteJson() {
         return fetchJson('quote.json?v=' + Date.now(), 8000).then(function (j) {
           var price = numOf(j.price != null ? j.price : j.lastSalePrice);
@@ -806,9 +741,8 @@
           };
         });
       }
-      /* --- 2) Nasdaq 官方 API 直连 --- */
       function loadNasdaq() {
-        return fetchJson('https://api.nasdaq.com/api/quote/LRCX/info?assetclass=stocks', 9000).then(function (j) {
+        return fetchJson('https://api.nasdaq.com/api/quote/MU/info?assetclass=stocks', 9000).then(function (j) {
           var d = (j && j.data) || {};
           var price = numOf(d.lastSalePrice);
           if (isNaN(price)) throw new Error('nasdaq empty');
@@ -819,9 +753,8 @@
           };
         });
       }
-      /* --- 3) Yahoo Finance --- */
       function loadYahoo() {
-        return fetchJson('https://query1.finance.yahoo.com/v8/finance/chart/LRCX?range=1d&interval=1d', 9000).then(function (j) {
+        return fetchJson('https://query1.finance.yahoo.com/v8/finance/chart/MU?range=1d&interval=1d', 9000).then(function (j) {
           var m = (j && j.chart && j.chart.result && j.chart.result[0] && j.chart.result[0].meta) || {};
           var price = numOf(m.regularMarketPrice);
           if (isNaN(price)) throw new Error('yahoo empty');
@@ -836,27 +769,25 @@
           };
         });
       }
-      /* --- 4) Stooq（lrcx.us）：即时报价 + 日线近两根 K 计算涨跌 --- */
       function loadStooq() {
-        return fetchText('https://stooq.com/q/l/?s=lrcx.us&f=sd2t2ohlcv&h&e=csv', 9000).then(function (csv) {
+        return fetchText('https://stooq.com/q/l/?s=mu.us&f=sd2t2ohlcv&h&e=csv', 9000).then(function (csv) {
           var rows = csv.trim().split(/\r?\n/);
           if (rows.length < 2) throw new Error('stooq empty');
           var f = rows[rows.length - 1].split(',');
-          // Stooq f=sd2t2ohlcv 列序：0=Symbol, 1=Date, 2=Time, 3=Open, 4=High, 5=Low, 6=Close, 7=Volume
           var qDate = cleanCSV(f[1]), price = numOf(cleanCSV(f[6]));
           if (!qDate || isNaN(price)) throw new Error('stooq no quote');
           var quote = {
             price: price, netChange: NaN, pctChange: NaN, prevClose: NaN,
             time: qDate + ' ' + cleanCSV(f[2]).slice(0, 5),
-            status: statusFromClock(), source: 'Stooq（lrcx.us 直连）'
+            status: statusFromClock(), source: 'Stooq（mu.us 直连）'
           };
-          return fetchText('https://stooq.com/q/d/l/?s=lrcx.us&i=d', 9000).then(function (daily) {
+          return fetchText('https://stooq.com/q/d/l/?s=mu.us&i=d', 9000).then(function (daily) {
             var dr = daily.trim().split(/\r?\n/).filter(function (l) { return l && l.indexOf('Date') !== 0; });
             var todayRow = null, prevRow = null;
             dr.forEach(function (l) {
               var c = l.split(','), d = cleanCSV(c[0]);
               if (d === qDate) todayRow = c;
-              else if (d < qDate) prevRow = c; // ISO 日期可直接比较
+              else if (d < qDate) prevRow = c;
             });
             var c2 = prevRow ? numOf(cleanCSV(prevRow[4])) : NaN;
             if (!inMarketHours() && todayRow) {
@@ -869,7 +800,7 @@
               quote.pctChange = (quote.price - c2) / c2 * 100;
             }
             return quote;
-          }).catch(function () { return quote; }); // 日线失败也不影响价格展示
+          }).catch(function () { return quote; });
         });
       }
 
@@ -905,7 +836,7 @@
         tryChain([loadQuoteJson, loadNasdaq, loadYahoo, loadStooq]).then(function (q) {
           render(q); done();
         }, function () {
-          if (!silent) { // 静默刷新失败不打扰用户，只保留静态快照
+          if (!silent) {
             tag.textContent = '刷新失败';
             tag.className = 'tag unavailable';
             metaEl.textContent = 'quote.json / Nasdaq / Yahoo / Stooq 均不可达，已保留上一报价 · 点击再试一次';
@@ -915,7 +846,7 @@
       }
 
       btn.addEventListener('click', function () { refreshQuote(false); });
-      if (inMarketHours()) refreshQuote(true); // 美东开盘时段自动静默刷新一次
+      if (inMarketHours()) refreshQuote(true);
     })();
   </script>
 </body>

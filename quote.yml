@@ -1,10 +1,10 @@
-name: Update LRCX quote
+name: Update MU quote
 
-# Pulls the LRCX quote from the Nasdaq official API every 15 minutes during
+# Pulls the MU quote from the Nasdaq official API every 15 minutes during
 # NYSE trading hours and commits it as quote.json, so the static page
 # can serve fresh quotes same-origin (no client-side cross-border fetch).
 # Client-side fallback chain (in-page): quote.json -> Nasdaq direct ->
-# Yahoo Finance -> Stooq (lrcx.us).
+# Yahoo Finance -> Stooq (mu.us).
 on:
   schedule:
     # 13:00-21:00 UTC covers 09:30-17:00 ET in EDT and 08:00-16:00 ET in EST, Mon-Fri
@@ -24,7 +24,7 @@ jobs:
           import json, urllib.request, datetime
           from zoneinfo import ZoneInfo
           req = urllib.request.Request(
-              "https://api.nasdaq.com/api/quote/LRCX/info?assetclass=stocks",
+              "https://api.nasdaq.com/api/quote/MU/info?assetclass=stocks",
               headers={"User-Agent": "Mozilla/5.0 (X11; Linux x86_64)",
                        "Accept": "application/json"})
           with urllib.request.urlopen(req, timeout=25) as r:
@@ -42,7 +42,7 @@ jobs:
           hm = et_now.hour * 60 + et_now.minute
           status = "intraday" if 570 <= hm < 960 else "postmarket"
           out = {
-              "symbol": "LRCX",
+              "symbol": "MU",
               "price": round(price, 2),
               "netChange": round(net, 2),
               "pctChange": round(pct, 2),
@@ -64,6 +64,6 @@ jobs:
           if git diff --cached --quiet; then
             echo "Quote unchanged, nothing to commit."
           else
-            git commit -m "Update LRCX quote snapshot"
+            git commit -m "Update MU quote snapshot"
             git push
           fi

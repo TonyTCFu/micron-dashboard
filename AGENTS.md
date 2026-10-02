@@ -1,11 +1,11 @@
 # AGENTS.md
 
-Single-page static dashboard (Lam Research / LRCX tracker) deployed via
+Single-page static dashboard (Micron Technology / MU tracker) deployed via
 GitHub Pages. Independent repo; do not mix with tempus-dashboard,
-spacex-dashboard, nvda-dashboard, or micron-dashboard.
+spacex-dashboard, nvda-dashboard, or lam-research-dashboard.
 
 ## Rules
-- `index.html` is the entire site. It is generated from the `lam-research-dashboard`
+- `index.html` is the entire site. It is generated from the `micron-dashboard`
   web artifact: do not hand-edit the deployed copy; edit the artifact and re-export.
 - Deploy = overwrite `index.html` on the `main` branch root. GitHub Pages serves
   from `main` / `(root)`. No build step.
@@ -13,7 +13,7 @@ spacex-dashboard, nvda-dashboard, or micron-dashboard.
 - Live quotes: `quote.json` snapshot in the repo root, refreshed every 15 minutes
   during NYSE trading hours by `.github/workflows/quote.yml` (Nasdaq official API,
   real-time, delayMin=0). The page reads it same-origin; client-side fallback chain
-  is quote.json -> Nasdaq direct -> Yahoo Finance -> Stooq (lrcx.us).
+  is quote.json -> Nasdaq direct -> Yahoo Finance -> Stooq (mu.us).
   Never claim tick-level real time.
 - Page copy in Chinese; code, comments, and commit messages in English.
 - Cite every data point with source link and date. Distinguish verified facts,
