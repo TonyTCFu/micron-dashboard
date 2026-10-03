@@ -1,0 +1,876 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="description" content="美光科技（NASDAQ: MU）研究看板：行情、财务、空头、分析师评级与事件雷达。数据截至 2026-10-02 美股收盘。" />
+  <link rel="icon" type="image/png" sizes="32x32" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAyUlEQVR4nO2UXQ3DMAyEA6EQAqUQCiEQCsEQAqEQBqEQAiEQxmBztDx0p/yu7aZqPunUh1zsL04VpUQi0YU0sx37AfZsgqxhr5lsWBt6Gg+ZxugbW8dvLet6IFInOcKupfmYOekU1yz7XmhiN7nUFKcagIUNSyNksPmw3ps8bMjdG957brwacr4GsA2vhRxBlgpZvIpDAMYOAJzW1wFIAC4DgMFS0V0AlDA+GMHzWQCtb7f+JYApFDwFwKvXT7fE4jXtAhCJRP+tJ0Z/8Y/ODAeiAAAAAElFTkSuQmCC" />
+  <link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAyUlEQVR4nO2UXQ3DMAyEA6EQAqUQCiEQCsEQAqEQBqEQAiEQxmBztDx0p/yu7aZqPunUh1zsL04VpUQi0YU0sx37AfZsgqxhr5lsWBt6Gg+ZxugbW8dvLet6IFInOcKupfmYOekU1yz7XmhiN7nUFKcagIUNSyNksPmw3ps8bMjdG957brwacr4GsA2vhRxBlgpZvIpDAMYOAJzW1wFIAC4DgMFS0V0AlDA+GMHzWQCtb7f+JYApFDwFwKvXT7fE4jXtAhCJRP+tJ0Z/8Y/ODAeiAAAAAElFTkSuQmCC" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <title>Micron Dashboard</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #070a0e;
+      --surface: #0d1218;
+      --surface-2: #141b23;
+      --ink: #edf2f7;
+      --muted: #9ba9b6;
+      --line: #27313b;
+      --line-strong: #45515e;
+      --accent: #4db8ff;
+      --chart: #4db8ff;
+      --positive: #47c6a1;
+      --warning: #e3a84d;
+      --danger: #ff6678;
+      --tag-bg: #182230;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "Noto Sans SC", system-ui, -apple-system, sans-serif;
+      background:
+        linear-gradient(var(--line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--line) 1px, transparent 1px),
+        var(--bg);
+      background-size: 44px 44px, 44px 44px, auto;
+      color: var(--ink);
+      line-height: 1.65;
+    }
+    .shell { max-width: 1180px; margin: 0 auto; padding: 28px 20px 60px; }
+    a { color: var(--accent); }
+    .pos { color: var(--positive); }
+    .neg { color: var(--danger); }
+
+    .mast {
+      display: flex; justify-content: space-between; align-items: flex-start; gap: 18px;
+      padding: 26px 26px 22px;
+      background: var(--surface); border: 1px solid var(--line);
+      border-top: 3px solid var(--accent);
+      margin-bottom: 14px;
+    }
+    .ticker {
+      font-family: "IBM Plex Mono", monospace; font-size: 11.5px; letter-spacing: .14em;
+      color: var(--accent); margin-bottom: 8px;
+    }
+    h1 {
+      font-family: "IBM Plex Sans Condensed", "Noto Sans SC", sans-serif;
+      font-size: clamp(30px, 4.6vw, 46px); font-weight: 700; margin: 0 0 8px; letter-spacing: .01em;
+    }
+    h1 .tagline { font-weight: 500; color: var(--muted); font-size: .62em; display: block; letter-spacing: .04em; }
+    .mast-note { color: var(--muted); font-size: 13.5px; max-width: 62ch; margin: 0; }
+    .asof {
+      flex: none; text-align: right; font-size: 12.5px; color: var(--muted);
+      border-left: 1px solid var(--line); padding-left: 18px;
+    }
+    .asof strong {
+      display: block; color: var(--ink); font-family: "IBM Plex Mono", monospace;
+      font-size: 13px; margin-bottom: 4px;
+    }
+
+    .snapshot-warning {
+      border: 1px solid var(--warning); border-left-width: 4px; background: var(--surface);
+      padding: 12px 16px; font-size: 13px; color: var(--ink); margin: 0 0 14px;
+    }
+    .snapshot-warning strong { color: var(--warning); }
+
+    .section-nav {
+      display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 18px;
+      position: sticky; top: 0; z-index: 5;
+      background: color-mix(in srgb, var(--bg) 88%, transparent);
+      padding: 8px 0; backdrop-filter: blur(6px);
+    }
+    .section-nav a {
+      text-decoration: none; font-size: 12.5px; color: var(--muted);
+      border: 1px solid var(--line); background: var(--surface);
+      padding: 6px 12px; border-radius: 3px; letter-spacing: .04em;
+    }
+    .section-nav a:hover { color: var(--accent); border-color: var(--accent); }
+
+    .metrics {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 26px;
+    }
+    .metric {
+      background: var(--surface); border: 1px solid var(--line);
+      padding: 16px 18px; min-width: 0;
+    }
+    .metric.primary { border-top: 3px solid var(--accent); }
+    .metric-label { display: block; font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+    .metric-value {
+      font-family: "IBM Plex Sans Condensed", "Noto Sans SC", sans-serif;
+      font-size: clamp(26px, 3vw, 36px); font-weight: 600; line-height: 1.15;
+      display: block; margin-bottom: 6px;
+    }
+    .metric-value .chg { font-size: .44em; font-weight: 600; white-space: nowrap; }
+    .metric-sub { font-size: 12px; color: var(--muted); line-height: 1.55; }
+
+    .price-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 6px; }
+    .price-head .metric-label { margin-bottom: 0; min-width: 0; }
+    #refreshQuote {
+      font-family: "IBM Plex Mono", monospace; font-size: 11.5px; letter-spacing: .04em;
+      background: var(--surface-2); color: var(--accent); border: 1px solid var(--accent);
+      padding: 5px 10px; border-radius: 3px; cursor: pointer; white-space: nowrap; flex: none;
+    }
+    #refreshQuote:hover { filter: brightness(1.18); }
+    #refreshQuote:disabled { opacity: .55; cursor: wait; }
+
+    .section { margin-bottom: 34px; scroll-margin-top: 64px; }
+    .section-head {
+      display: flex; justify-content: space-between; align-items: baseline; gap: 12px;
+      border-bottom: 2px solid var(--line-strong); padding-bottom: 8px; margin-bottom: 16px;
+    }
+    .section-head h2 {
+      font-family: "IBM Plex Sans Condensed", "Noto Sans SC", sans-serif;
+      font-size: 24px; margin: 0; font-weight: 600;
+    }
+    .section-index {
+      font-family: "IBM Plex Mono", monospace; font-size: 11px; letter-spacing: .16em; color: var(--muted);
+      white-space: nowrap;
+    }
+    .panel { background: var(--surface); border: 1px solid var(--line); }
+    .card { background: var(--surface); border: 1px solid var(--line); padding: 18px 20px; }
+    .card h3 { margin: 0 0 10px; font-size: 15px; font-weight: 600; }
+    .card p { margin: 8px 0; font-size: 13.5px; color: var(--muted); }
+    .card p strong { color: var(--ink); }
+    .segment-value {
+      font-family: "IBM Plex Sans Condensed", sans-serif; font-size: 30px; font-weight: 600; margin-bottom: 4px;
+    }
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; align-items: start; }
+    .three-col { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; align-items: start; }
+
+    .data-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;
+    }
+    .datum {
+      background: var(--surface); border: 1px solid var(--line);
+      padding: 14px 16px; min-width: 0;
+    }
+    .datum .k { display: block; font-size: 11.5px; color: var(--muted); margin-bottom: 6px; line-height: 1.5; }
+    .datum .v {
+      display: block; font-family: "IBM Plex Sans Condensed", "Noto Sans SC", sans-serif;
+      font-size: 21px; font-weight: 600; line-height: 1.25; margin-bottom: 6px;
+    }
+    .datum .v small { font-size: .62em; }
+    .datum span { display: block; }
+
+    .tag {
+      display: inline-block; font-size: 11px; letter-spacing: .06em;
+      background: var(--tag-bg); color: var(--ink);
+      padding: 2px 8px; border-radius: 3px; border: 1px solid var(--line-strong);
+      font-family: "IBM Plex Mono", monospace; white-space: nowrap;
+    }
+    .tag.warn { color: var(--warning); border-color: var(--warning); background: transparent; }
+    .tag.unavailable { color: var(--muted); }
+
+    .cite {
+      font-family: "IBM Plex Mono", monospace; font-size: 11px; letter-spacing: .04em;
+      color: var(--accent); text-decoration: none; white-space: nowrap;
+    }
+    .cite:hover { text-decoration: underline; }
+
+    .chart-panel { padding: 8px 0 4px; }
+    .chart-toolbar {
+      display: flex; justify-content: space-between; align-items: center; gap: 12px;
+      padding: 10px 18px 2px; flex-wrap: wrap;
+    }
+    .chart-toolbar h3 { margin: 0; font-size: 15px; font-weight: 600; }
+    .range-switch { display: flex; gap: 6px; }
+    .range-switch button {
+      font-family: "IBM Plex Mono", monospace; font-size: 11.5px; letter-spacing: .04em;
+      background: var(--surface-2); color: var(--muted); border: 1px solid var(--line-strong);
+      padding: 5px 12px; border-radius: 3px; cursor: pointer;
+    }
+    .range-switch button[aria-pressed="true"] { color: var(--accent); border-color: var(--accent); }
+    .chart-wrap { padding: 0 8px; }
+    #priceChart { width: 100%; height: auto; display: block; cursor: crosshair; touch-action: pan-y; }
+    .chart-stats {
+      display: flex; flex-wrap: wrap; gap: 8px 22px; padding: 10px 18px 0;
+      font-family: "IBM Plex Mono", monospace; font-size: 12px; color: var(--muted);
+    }
+    .chart-readout {
+      padding: 8px 18px 0; font-family: "IBM Plex Mono", monospace; font-size: 12.5px; color: var(--ink);
+      min-height: 30px;
+    }
+    .chart-note { padding: 6px 18px 16px; font-size: 12px; color: var(--muted); }
+
+    .plain-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .plain-table th {
+      text-align: left; font-size: 11px; letter-spacing: .08em; color: var(--muted);
+      border-bottom: 1px solid var(--line-strong); padding: 10px 8px; font-weight: 600;
+    }
+    .plain-table td { border-bottom: 1px solid var(--line); padding: 10px 8px; vertical-align: top; }
+    .plain-table tr:last-child td { border-bottom: 0; }
+    .plain-table td:nth-child(n+2) { font-family: "IBM Plex Mono", monospace; font-size: 12.5px; }
+    .plain-table td:nth-child(2) { font-family: "IBM Plex Sans Condensed", "Noto Sans SC", sans-serif; font-size: 13px; font-weight: 500; }
+
+    .pt-list { padding: 6px 0; }
+    .pt-row {
+      display: grid; grid-template-columns: 190px 1fr 130px; gap: 12px; align-items: center;
+      padding: 7px 0; border-bottom: 1px solid var(--line);
+    }
+    .pt-row:last-child { border-bottom: 0; }
+    .pt-firm { font-family: "IBM Plex Sans Condensed", "Noto Sans SC", sans-serif; font-size: 13.5px; font-weight: 500; }
+    .pt-firm em { display: block; font-style: normal; font-family: "IBM Plex Mono", monospace; font-size: 11px; color: var(--muted); font-weight: 400; }
+    .pt-track { position: relative; background: var(--surface-2); height: 20px; border-radius: 2px; }
+    .pt-bar { height: 100%; background: var(--positive); opacity: .75; border-radius: 2px; }
+    .pt-bar.up { background: var(--positive); }
+    .pt-row.avg .pt-bar { background: var(--muted); opacity: .55; }
+    .pt-row.avg { background: var(--surface-2); border-radius: 4px; padding-left: 10px; padding-right: 10px; margin: 6px -10px; }
+    .pt-baseline { position: absolute; top: -2px; bottom: -2px; width: 2px; background: var(--accent); }
+    .pt-val { font-family: "IBM Plex Mono", monospace; font-size: 13px; text-align: right; }
+    .pt-val em { display: block; font-style: normal; font-size: 11px; }
+    .pt-note { font-size: 12px; color: var(--muted); padding: 10px 0 4px; }
+
+    .tl-sub {
+      font-family: "IBM Plex Sans Condensed", "Noto Sans SC", sans-serif;
+      font-size: 16px; font-weight: 600; padding: 18px 18px 12px;
+      border-top: 1px solid var(--line); margin-top: 6px;
+    }
+    .tl-sub:first-child { border-top: 0; margin-top: 0; }
+    .tl-sub span { color: var(--muted); font-size: 12.5px; font-weight: 400; margin-left: 8px; }
+    .event {
+      display: grid; grid-template-columns: 150px 1fr; gap: 16px;
+      padding: 12px 18px; border-bottom: 1px solid var(--line);
+    }
+    .event:last-child { border-bottom: 0; }
+    .event-date { font-family: "IBM Plex Mono", monospace; font-size: 12px; color: var(--muted); line-height: 1.7; padding-top: 2px; }
+    .event h3 { margin: 0 0 4px; font-size: 14.5px; font-weight: 600; }
+    .event p { margin: 0; font-size: 13px; color: var(--muted); }
+    .event p strong { color: var(--ink); }
+
+    .thesis-list, .risk-list { list-style: none; margin: 0; padding: 0; }
+    .thesis-list li, .risk-list li { display: flex; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+    .thesis-list li:last-child, .risk-list li:last-child { border-bottom: 0; }
+    .thesis-list .num, .risk-list .num {
+      font-family: "IBM Plex Mono", monospace; color: var(--accent);
+      font-size: 12px; padding-top: 3px; flex: none;
+    }
+    .risk-list .num { color: var(--danger); }
+    .thesis-list h4, .risk-list h4 { margin: 0 0 4px; font-size: 14px; font-weight: 600; }
+    .thesis-list p, .risk-list p { margin: 0; font-size: 13px; color: var(--muted); }
+    .view-flag { font-size: 11px; color: var(--warning); border: 1px solid var(--warning); padding: 1px 7px; border-radius: 3px; white-space: nowrap; margin-left: 8px; }
+
+    .source-note {
+      background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--accent);
+      padding: 14px 18px; font-size: 12.5px; color: var(--muted); margin-bottom: 22px;
+    }
+    .source-note strong { color: var(--ink); }
+
+    footer { font-size: 12px; color: var(--muted); text-align: center; padding-top: 8px; }
+
+    @media (max-width: 900px) {
+      .metrics { grid-template-columns: 1fr 1fr; }
+      .data-grid { grid-template-columns: 1fr 1fr; }
+      .two-col, .three-col { grid-template-columns: 1fr; }
+      .mast { flex-direction: column; }
+      .asof { border-left: 0; border-top: 1px solid var(--line); padding-left: 0; padding-top: 12px; text-align: left; width: 100%; }
+    }
+    @media (max-width: 640px) {
+      .shell { padding: 16px 12px 48px; }
+      .metrics { grid-template-columns: 1fr; }
+      .data-grid { grid-template-columns: 1fr; }
+      .pt-row { grid-template-columns: 1fr 96px; }
+      .pt-firm { grid-column: 1 / -1; }
+      .pt-track { grid-row: 2; }
+      .pt-val { grid-row: 2; }
+      .pt-row.avg { margin: 6px 0; }
+      .event { grid-template-columns: 1fr; gap: 4px; }
+      .plain-table thead { display: none; }
+      .plain-table, .plain-table tbody, .plain-table tr, .plain-table td { display: block; width: 100%; }
+      .plain-table tr { border-bottom: 1px solid var(--line-strong); padding: 6px 0; }
+      .plain-table td { border: 0; padding: 4px 0; font-size: 12.5px; }
+      .plain-table td::before { content: attr(data-label); display: inline-block; width: 38%; color: var(--muted); font-size: 11px; font-family: "Noto Sans SC", sans-serif; }
+      .section-nav { position: static; }
+    }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header class="mast">
+      <div>
+        <div class="ticker">NASDAQ · MU / RESEARCH SNAPSHOT</div>
+        <h1>Micron 美光科技<span class="tagline">AI 存储 · Micron Technology, Inc.（MU）</span></h1>
+        <p class="mast-note">价格卡可手动刷新实时行情（美东交易时段打开时自动刷新一次）；财务、做空、分析师与事件为截至 2026-10-02（美东）的静态研究快照，其余数字均按旁注日期与口径呈现，来源标注于每个数字之下。</p>
+      </div>
+      <div class="asof"><strong>数据快照 · 2026-10-02</strong>美股收盘 · ET · USD<br />调研日期 2026-10-03</div>
+    </header>
+
+    <div class="snapshot-warning"><strong>先看数据边界：</strong>分析师目标价与评级属于第三方观点，不等于事实或投资建议；借券利用率与借券费率无免费公开源，本页仅呈现 FINRA 数据并标注边界；⚠️ 标注项为单一来源或来源间有出入，保持标注、不编造。</div>
+
+    <nav class="section-nav" aria-label="页面章节">
+      <a href="#market">行情</a><a href="#options-structure">期权结构</a><a href="#financials">财务</a><a href="#short">做空</a><a href="#analysts">分析师</a><a href="#events">事件雷达</a><a href="#thesis">为什么关注</a><a href="#risks">风险</a>
+    </nav>
+
+    <section class="metrics" aria-label="关键数字">
+      <article class="metric primary">
+        <div class="price-head">
+          <span class="metric-label">实时行情 <span class="tag unavailable" id="quoteStateTag">收盘 · 静态快照</span></span>
+          <button type="button" id="refreshQuote">↻ 刷新实时行情</button>
+        </div>
+        <span class="metric-value"><span id="quotePrice">$1,074.89</span> <span class="chg neg" id="quoteChg">-$22.50 · -2.05%</span></span>
+        <div class="metric-sub" id="quoteMeta">报价 2026-10-02 16:00 ET · 收盘 · 较前收盘 $1,097.39 · 来源 Nasdaq 官方 API（静态快照）</div>
+      </article>
+      <article class="metric">
+        <span class="metric-label">市值 · 2026-10-02</span>
+        <span class="metric-value">≈$1.21T</span>
+        <div class="metric-sub">约 $1.21 万亿，随股价浮动</div>
+      </article>
+      <article class="metric">
+        <span class="metric-label">空头仓位 · 2026-09-15</span>
+        <span class="metric-value">27.63M</span>
+        <div class="metric-sub">占流通盘 2.45% · 空头下降中 · <a class="cite" href="https://www.MarketBeat.com/stocks/NASDAQ/MU/short-interest/" target="_blank" rel="noreferrer">FINRA / MARKETBEAT ↗</a></div>
+      </article>
+      <article class="metric">
+        <span class="metric-label">分析师共识 · 中位目标价</span>
+        <span class="metric-value">Buy <span class="chg" style="font-size:.44em">中位 $1,545</span></span>
+        <div class="metric-sub">49 家共识/中位目标价 $1,545（CleaRank 2026-10-02），相对现价 +43.7% · <a class="cite" href="https://www.marketbeat.com/stocks/NASDAQ/MU/forecast/" target="_blank" rel="noreferrer">MARKETBEAT ↗</a></div>
+      </article>
+    </section>
+
+    <section class="section" id="market">
+      <div class="section-head"><h2>股价表现</h2><span class="section-index">01 / MARKET</span></div>
+
+      <div class="three-col" style="margin-bottom:12px">
+        <article class="card"><h3>公司</h3><div class="segment-value">Micron</div><p>AI 存储龙头；FQ4 2026 营收 $54.23B（+379% YoY，6 连创季度新高）。DRAM $39.77B（73%）、NAND $14.10B（26%），数据中心 SSD ~$10B（&gt;10 倍 YoY）。</p></article>
+        <article class="card"><h3>CEO</h3><div class="segment-value" style="font-size:24px">Sanjay Mehrotra</div><p>“Fiscal 2026 was an outstanding year... we expect an even stronger fiscal 2027.” HBM 2027 年产出逾 75% 已承诺（committed），客户讨论已延伸至 2028 年；战略客户协议覆盖 2030 年预计收入 35% 以上、承诺额约 $32B；剩余履约义务约 $150B。</p></article>
+        <article class="card"><h3>FQ4 2026 业绩</h3><div class="segment-value" style="font-size:22px">$54.23B 营收 / EPS $33.42</div><p>调整后 EPS $33.42 超预期的 $31.6–31.8；调整后毛利率 87.0%。Q1 FY2027 指引营收 $60–63B（超预期的 $56.8B）、调整后 EPS $37.15–39.15。</p></article>
+      </div>
+
+      <div class="panel chart-panel">
+        <div class="chart-toolbar">
+          <h3>MU 日收盘价 · USD · 2026-07-06 至 2026-10-02</h3>
+          <div class="range-switch" aria-label="图表区间">
+            <button type="button" data-range="all" aria-pressed="true">全部</button>
+            <button type="button" data-range="1m" aria-pressed="false">近 1 个月</button>
+          </div>
+        </div>
+        <div class="chart-wrap"><svg id="priceChart" viewBox="0 0 960 360" role="img" aria-label="MU 自 2026 年 7 月 6 日至 10 月 2 日的每日收盘价折线图，标注关键事件"></svg></div>
+        <div class="chart-stats" id="chartStats"></div>
+        <div class="chart-readout" id="chartReadout">移动指针查看日期与收盘价</div>
+        <div class="chart-note">纵轴按可见数据范围缩放，非零基线；日期按真实时间间隔绘制（周末空档可见）。64 个交易日 · Nasdaq 官方历史 API（/api/quote/MU/historical），2026-10-03 抓取。窗口内最新收盘为 $1,074.89（2026-10-02，-2.05%）；区间内最高收盘仍是 $1,097.39，出现在 2026-10-01（10/02 收低，故 10/01 并非最新收盘）；区间最低收盘 $739.00（07/29）。</div>
+      </div>
+
+      <div class="data-grid" style="margin-top:12px">
+        <div class="datum"><span class="k">开盘 / 最高 / 最低</span><span class="v">$1,107.35 / $1,108.00 / $1,072.01</span><span class="k">2026-10-02 · Nasdaq 历史数据（经 Lodi News 刊载）</span></div>
+        <div class="datum"><span class="k">成交量</span><span class="v">27.78M 股</span><span class="k">2026-10-02，共 27.78M 股 · Nasdaq 历史数据；盘中报道 26.5–27.2M</span></div>
+        <div class="datum"><span class="k">52 周区间</span><span class="v">$179.61 – $1,255.00</span><span class="k">低点 2025-10-10 · 高点 2026-06-25（历史最高）· StockAnalysis / Webull / MarketBeat</span></div>
+        <div class="datum"><span class="k">距 52 周高点</span><span class="v">-14.3%</span><span class="k">较收盘 $1,074.89，还差 $180.11 达 $1,255.00 历史高点</span></div>
+        <div class="datum"><span class="k">前收盘</span><span class="v">$1,097.39</span><span class="k">2026-10-01 收盘 · 财报后首日 +3.03%</span></div>
+        <div class="datum"><span class="k">当日涨跌</span><span class="v neg">-$22.50 · -2.05%</span><span class="k">截至 2026-10-02 16:00 ET · 盘后 $1,069.15（盘后报价）</span></div>
+        <div class="datum"><span class="k">市值</span><span class="v">≈$1.21T</span><span class="k">2026-10-02 · 约 $1.21 万亿，随股价浮动</span></div>
+        <div class="datum"><span class="k">季度股息</span><span class="v">$0.15 / 股</span><span class="k">2026-09-30 宣派 · 除息 10/14、派发 10/29；$0.60 年化，股息率 ~0.1%（MarketBeat）</span></div>
+      </div>
+    </section>
+
+    <section class="section" id="options-structure">
+      <div class="section-head"><h2>期权结构</h2><span class="section-index">01A / OPTIONS STRUCTURE</span></div>
+      <p style="margin:0 0 12px;font-size:13px;color:var(--muted)">数据截至 2026-10-01，每周更新</p>
+
+      <div class="panel" style="padding:16px 18px;margin-bottom:12px;border-left:4px solid var(--accent)">
+        <div style="display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;margin-bottom:8px">
+          <span style="font-size:12px;color:var(--muted);letter-spacing:.04em">做市商 Gamma 状态</span>
+          <span class="tag" style="color:var(--positive);border-color:var(--positive);background:transparent;font-size:12px;padding:4px 10px">正 Gamma · 盘整/钉价倾向</span>
+        </div>
+        <p style="margin:0;font-size:13.5px;color:var(--muted)">当前「<strong style="color:var(--ink)">正 Gamma · 盘整/钉价倾向</strong>」（正 Gamma 时做市商涨卖跌买、波动易被压缩；负 Gamma 时波动被放大）</p>
+      </div>
+
+      <div class="data-grid">
+        <div class="datum"><span class="k">净做市商 GEX</span><span class="v pos">+$1.0B</span><span class="k">FlashAlpha 快照 2026-10-01 17:41 ET（现货 $1,088.13）</span></div>
+        <div class="datum"><span class="k">Call Wall</span><span class="v">$1,100</span><span class="k">阻力参考 · FlashAlpha Gamma 墙（OptiView 全期限 OI 口径 $1,300，口径不同、不合并）</span></div>
+        <div class="datum"><span class="k">Put Wall</span><span class="v">$1,000</span><span class="k">支撑参考 · FlashAlpha Gamma 墙（OptiView 全期限 OI 口径 $600，口径不同、不合并）</span></div>
+        <div class="datum"><span class="k">Max Pain</span><span class="v">$865</span><span class="k">做市商对冲参考位 · OptiView 2026-10-01</span></div>
+        <div class="datum"><span class="k">Put-Call 未平仓比</span><span class="v">1.01</span><span class="k">Call 166.7 万张／Put 167.7 万张 · OptiView 2026-10-01 15:55 ET（OPRA 15 分钟延迟）</span></div>
+        <div class="datum"><span class="k">30 天 ATM IV</span><span class="v">55.7%</span><span class="k">IV Rank 5/100，低 · OptiView 2026-10-01（FlashAlpha ATM IV 54.1%，口径/时点差异）</span></div>
+        <div class="datum"><span class="k">期权隐含预期波幅</span><span class="v">±$171.59</span><span class="k">±15.7% · OptiView 2026-10-01；20 天 HV 49.9%（FlashAlpha），IV 高于 HV</span></div>
+      </div>
+
+      <p style="margin:12px 0 0;font-size:12px;color:var(--muted);line-height:1.7">数据来源 OptiView、FlashAlpha（OPRA 延迟数据）。Call/Put Wall 与 Max Pain 为做市商对冲参考位，不构成买卖建议。Gamma Flip 各模型分歧较大，本板块不列固定数值。GEX 正负基于“做市商持有与公开订单流相反头寸”的模型假设。</p>
+    </section>
+
+    <section class="section" id="financials">
+      <div class="section-head"><h2>财务表现 · FQ4 2026</h2><span class="section-index">02 / FINANCIALS</span></div>
+      <div class="data-grid">
+        <div class="datum"><span class="k">FQ4 2026 总营收</span><span class="v">$54.23B <small class="pos">+379% YoY</small></span><span class="k">季度截至 2026-09-03 · FQ3 $41.46B · 去年同期 $11.32B · 财报发布 2026-09-30 盘后</span></div>
+        <div class="datum"><span class="k">调整后 EPS</span><span class="v">$33.42 <small class="pos">超预期</small></span><span class="k">预期 $31.61–31.83；GAAP EPS $32.87（去年同期 $2.83）</span></div>
+        <div class="datum"><span class="k">调整后毛利率</span><span class="v">87.0%</span><span class="k">FQ3 84.9%，+210 bps（指引 ~86.25%，超指引）；GAAP 毛利率 86.8%</span></div>
+        <div class="datum"><span class="k">GAAP 净利润</span><span class="v">$37.70B</span><span class="k">GAAP 营业利润 $43.751B（利润率 80.7%）；调整后营业利润 $44.6B（82%）</span></div>
+        <div class="datum"><span class="k">经营现金流 / 自由现金流</span><span class="v">$43.97B / $33.20B</span><span class="k">调整后自由现金流 $33.20B · FQ4 2026</span></div>
+        <div class="datum"><span class="k">DRAM 营收</span><span class="v">$39.77B <small class="pos">+27% QoQ</small></span><span class="k">占比 73% · ASP 环比涨 high-teens %；比特出货量涨中个位数 %</span></div>
+        <div class="datum"><span class="k">NAND 营收</span><span class="v">$14.10B <small class="pos">+42% QoQ</small></span><span class="k">占比 26% · ASP +~30%；比特出货量 +~10%；数据中心 SSD ~$10B（&gt;10 倍 YoY，占 NAND 三分之二以上）</span></div>
+        <div class="datum"><span class="k">Q1 FY2027 指引</span><span class="v">$60–63B 营收</span><span class="k">营收中值 $61.5B；调整后 EPS $37.15–39.15（中值 $38.15）；调整后毛利率 ~86.25% ⚠️（有分析师认为毛利率指引偏软，fxleaders）</span></div>
+        <div class="datum"><span class="k">FY2026 全年营收</span><span class="v">$133.19B <small class="pos">+256% YoY</small></span><span class="k">FY2025 $37.38B；GAAP 净利润 $84.97B；经营现金流 $89.68B；调整后自由现金流 $62.31B；资本开支 $27.37B</span></div>
+        <div class="datum"><span class="k">客户预付款 / 长约</span><span class="v">$12.7B / $32B</span><span class="k">FQ4 新增 $12.3B；26 份多年期 take-or-pay 协议 $32B（6 月 $22B）；剩余履约义务 ~$150B</span></div>
+        <div class="datum"><span class="k">资本开支</span><span class="v">$10.77B</span><span class="k">FQ4 2026 单季 · FY2026 全年 $27.37B</span></div>
+        <div class="datum"><span class="k">资本回报</span><span class="v">12/09 启动</span><span class="k">12 月 9 日起启动大规模资本回报计划（CFO Mark Murphy）；回购授权剩余额度 $2.2B（stocktwits）</span></div>
+      </div>
+      <article class="card" style="margin-top:12px">
+        <h3>业务部门与 HBM</h3>
+        <p><strong>Core Data Center（核心数据中心）$18.002B（33%，毛利率 90%）；Cloud Memory（云内存）$16.283B（30%，毛利率 83%）；Mobile and Client（移动与客户端）$13.114B（24%）；Automotive and Embedded（汽车与嵌入式）$6.824B（13%）。</strong>四大业务部门营收均创纪录。</p>
+        <p><strong>HBM：</strong>增速超公司整体；HBM4 收入已破 $10 亿（Q3 起）。2027 年产出逾 75% 已承诺（committed）、价格显著高于去年，客户讨论已延伸至 2028 年（mexc / biggo）。战略客户协议覆盖 2030 年预计收入 35% 以上、承诺额约 $32B；剩余履约义务约 $150B（为全公司口径，非 HBM 合同 backlog）。</p>
+        <p>数据来源：Micron 官方财报（经 thelec.net、trendforce.com、techtimes.com、finance.biggo.com、gamebastion.com、mexc.com 交叉核实）；指引/分红/回购：marketbeat.com、stocktwits.com。</p>
+      </article>
+    </section>
+
+    <section class="section" id="short">
+      <div class="section-head"><h2>做空数据</h2><span class="section-index">03 / SHORT</span></div>
+      <div class="data-grid">
+        <div class="datum"><span class="k">Short interest</span><span class="v">27,633,780 股</span><span class="k">结算日 2026-09-15 · FINRA，经 MarketBeat 汇总；finviz 一致</span></div>
+        <div class="datum"><span class="k">空头变化</span><span class="v pos">−7.0%</span><span class="k">上期 29,710,000 股（2026-08-31）/ 2.64% · finviz，本期环比下降，空头呈下降趋势</span></div>
+        <div class="datum"><span class="k">Short % of float</span><span class="v">2.45%</span><span class="k">marketbeat / finviz 一致</span></div>
+        <div class="datum"><span class="k">Days to cover</span><span class="v">~1.1 天</span><span class="k">marketbeat 口径（finviz 0.69 天，按 40.34M 日均量，口径差异，本页用 marketbeat 口径并标注）</span></div>
+        <div class="datum"><span class="k">借券利用率 / 借券费率</span><span class="v"><span class="tag unavailable">无免费公开源</span></span><span class="k">无法查证 · 本页仅呈现 FINRA 数据，不估算费率</span></div>
+      </div>
+      <div class="source-note" style="margin-top:12px"><strong>统计口径：</strong>4–5 月曾有第三方文章称空头升至 ~37.3M 股（3.32%），为春季旧数据；当前 27.63M 为 9/15 最新结算，空头呈下降趋势。下一结算期（2026-09-30）截至 2026-10-03 尚未发布。借券利用率与实时借券费率无免费公开数据源，无法呈现或估算，实际做空成本以券商实时 locate 报价为准。<a class="cite" href="https://www.MarketBeat.com/stocks/NASDAQ/MU/short-interest/" target="_blank" rel="noreferrer">MARKETBEAT SHORT INTEREST ↗</a></div>
+    </section>
+
+    <section class="section" id="analysts">
+      <div class="section-head"><h2>分析师评级</h2><span class="section-index">04 / ANALYSTS</span></div>
+      <div class="data-grid" style="margin-bottom:12px">
+        <div class="datum"><span class="k">评级共识</span><span class="v">Buy</span><span class="k">49 家覆盖（CleaRank 2026-10-02）；目标价与评级为第三方观点</span></div>
+        <div class="datum"><span class="k">共识/中位目标价</span><span class="v">$1,545</span><span class="k">49 家共识/中位 · CleaRank 2026-10-02；相对 10/02 收盘 +43.7%</span></div>
+        <div class="datum"><span class="k">反方参考</span><span class="v">Morningstar $700</span><span class="k">2 星（偏贵）、无护城河；财报后将公允价值由 $850 下调至 $700，认为周期 2028 见顶、2029 下行（Finbold）</span></div>
+        <div class="datum"><span class="k">来源</span><span class="v"><a class="cite" href="https://www.marketbeat.com/stocks/NASDAQ/MU/forecast/" target="_blank" rel="noreferrer">MARKETBEAT FORECAST ↗</a></span><span class="k">目标价与评级聚合；单家明细见下表，⚠️ 项保持标注</span></div>
+      </div>
+      <div class="panel" style="padding:2px 18px 10px">
+        <div class="tl-sub" style="border-top:0;margin-top:0;padding-top:16px">目标价 ladder<span>基准：2026-10-02 收盘 $1,074.89（蓝线）· 涨跌幅相对现价计算 · 24 家机构</span></div>
+        <div class="pt-list">
+          <div class="pt-row"><span class="pt-firm">Melius Research<em>Buy · 2026-10-01 重申</em></span><div class="pt-track"><div class="pt-bar up" style="width:100%"></div><div class="pt-baseline" style="left:48.9%"></div></div><span class="pt-val">$2,200<em class="pos">+104.7%</em></span></div>
+          <div class="pt-row"><span class="pt-firm">D.A. Davidson<em>Buy · 2026-10-01 上调</em></span><div class="pt-track"><div class="pt-bar up" style="width:95.5%"></div><div class="pt-baseline" style="left:48.9%"></div></div><span class="pt-val">$2,100<em class="pos">+95.4%</em></span></div>
+          <div class="pt-row"><span class="pt-firm">Cantor Fitzgerald<em>Overweight · 2026-10-01 重申</em></span><div class="pt-track"><div class="pt-bar up" style="width:90.9%"></div><div class="pt-baseline" style="left:48.9%"></div></div><span class="pt-val">$2,000<em class="pos">+86.1%</em></span></div>
+          <div class="pt-row"><span class="pt-firm">Susquehanna<em>Positive · 2026-06-25 由 $1,750 上调</em></span><div class="pt-track"><div class="pt-bar up" style="width:90.9%"></div><div class="pt-baseline" style="left:48.9%"></div></div><span class="pt-val">$2,000<em class="pos">+86.1%</em></span></div>
+          <div class="pt-row"><span class="pt-firm">Barclays<em>Buy · 2026-10-02 维持</em></span><div class="pt-track"><div class="pt-bar up" style="width:90.9%"></div><div class="pt-baseline" style="left:48.9%"></div></div><span class="pt-val">$2,000<em class="pos">+86.1%</em></span></div>
+          <div class="pt-row"><span class="pt-firm">Rosenblatt<em>Buy · 由 $1,500 上调</em></span><div class="pt-track"><div class="pt-bar up" style="width:86.4%"></div><div class="pt-baseline" style="left:48.9%"></div></div><span class="pt-val">$1,900<em class="pos">+76.8%</em></span></div>
+          <div class="pt-row"><span class="pt-firm">KeyBanc<em>Buy · 2026-10-01</em></span><div class="pt-track"><div class="pt-bar up" style="width:79.5%"></div><div class="pt-baseline" style="left:48.9%"></div></div><span class="pt-val">$1,750<em class="pos">+62.8%</em></span></div>
+          <div class="pt-row"><span class="pt-firm">UBS<em>Buy · 2026-10-01 重申</em></span><div class="pt-track"><div class="pt-bar up" style="width:73.9%"></div><div class="pt-baseline" style="left:48.9%"></div></div><span class="pt-val">$1,625<em class="pos">+51.2%</em></span></div>
+          <div class="pt-row"><span class="pt-firm">TD Cowen<em>Buy · 2026-10-01 维持（9/16 由 $1,500 上调）</em></span><div class="pt-track"><div class="pt-bar up" style="width:72.7%"></div><div class="pt-baseline" style="left:48.9%"></div></div><span class="pt-val">$1,600<em class="pos">+48.9%</em></span></div>
+          <div class="pt-row"><span class="pt-firm">BofA<em>Buy · 2026-10-01 重申</em></span><div class="pt-track"><div class="pt-bar up" style="width:70.5%"></div><div class="pt-baseline" style="left:48.9%"></div></div><span class="pt-val">$1,550<em class="pos">+44.2%</em></span></div>
+          <div class="pt-row"><span class="pt-firm">JPMorgan<em>Overweight · 2026-09-28 维持（6/25 由 $550 上调）</em></span><div class="pt-track"><div class="pt-bar up" style="width:70.0%"></div><div class="pt-baseline" style="left:48.9%"></div></div><span class="pt-val">$1,540<em class="pos">+43.3%</em></span></div>
+          <div class="pt-row"><span class="pt-firm">Baird<em>Buy · 2026-10-01 维持</em></span><div class="pt-track"><div class="pt-bar up" style="width:69.1%"></div><div class="pt-baseline" style="left:48.9%"></div></div><span class="pt-val">$1,520<em class="pos">+41.4%</em></span></div>
+          <div class="pt-row"><span class="pt-firm">Stifel<em>Buy · 2026-09-21 维持</em></span><div class="pt-track"><div class="pt-bar up" style="width:68.2%"></div><div class="pt-baseline" style="left:48.9%"></div></div><span class="pt-val">$1,500<em class="pos">+39.5%</em></span></div>
+          <div class="pt-row"><span class="pt-firm">Arete Research<em>Buy · 2026-07-21 由 $852 上调</em></span><div class="pt-track"><div class="pt-bar up" style="width:68.2%"></div><div class="pt-baseline" style="left:48.9%"></div></div><span class="pt-val">$1,500<em class="pos">+39.5%</em></span></div>
+          <div class="pt-row"><span class="pt-firm">Mizuho<em>Buy · 2026-09-30 由 $1,300 上调</em></span><div class="pt-track"><div class="pt-bar up" style="width:63.6%"></div><div class="pt-baseline" style="left:48.9%"></div></div><span class="pt-val">$1,400<em class="pos">+30.2%</em></span></div>
+          <div class="pt-row"><span class="pt-firm">Wells Fargo<em>Overweight · 财报前由 $1,525 下调</em></span><div class="pt-track"><div class="pt-bar up" style="width:63.6%"></div><div class="pt-baseline" style="left:48.9%"></div></div><span class="pt-val">$1,400<em class="pos">+30.2%</em></span></div>
+          <div class="pt-row"><span class="pt-firm">Wedbush<em>Outperform · 2026-09-28 维持（6/25 由 $1,300 上调）</em></span><div class="pt-track"><div class="pt-bar up" style="width:63.6%"></div><div class="pt-baseline" style="left:48.9%"></div></div><span class="pt-val">$1,400<em class="pos">+30.2%</em></span></div>
+          <div class="pt-row"><span class="pt-firm">Lynx Research<em>⚠️评级未找到 · 2026-09-08 新设</em></span><div class="pt-track"><div class="pt-bar up" style="width:60.2%"></div><div class="pt-baseline" style="left:48.9%"></div></div><span class="pt-val">$1,325<em class="pos">+23.3%</em></span></div>
+          <div class="pt-row"><span class="pt-firm">Bernstein<em>Buy · 2026-09-29 维持</em></span><div class="pt-track"><div class="pt-bar up" style="width:59.1%"></div><div class="pt-baseline" style="left:48.9%"></div></div><span class="pt-val">$1,300<em class="pos">+20.9%</em></span></div>
+          <div class="pt-row"><span class="pt-firm">BMO Capital<em>Outperform · 2026-08-21 首次覆盖</em></span><div class="pt-track"><div class="pt-bar up" style="width:59.1%"></div><div class="pt-baseline" style="left:48.9%"></div></div><span class="pt-val">$1,300<em class="pos">+20.9%</em></span></div>
+          <div class="pt-row"><span class="pt-firm">Citi<em>Buy · 2026-10-01 维持</em></span><div class="pt-track"><div class="pt-bar up" style="width:59.1%"></div><div class="pt-baseline" style="left:48.9%"></div></div><span class="pt-val">$1,300<em class="pos">+20.9%</em></span></div>
+          <div class="pt-row"><span class="pt-firm">Goldman Sachs<em>Neutral · 2026-10-01 由 $1,100 上调 ⚠️</em></span><div class="pt-track"><div class="pt-bar up" style="width:56.8%"></div><div class="pt-baseline" style="left:48.9%"></div></div><span class="pt-val">$1,250<em class="pos">+16.3%</em></span></div>
+          <div class="pt-row"><span class="pt-firm">New Street Research<em>Buy · 2026-08-14 由 Neutral 上调</em></span><div class="pt-track"><div class="pt-bar up" style="width:56.8%"></div><div class="pt-baseline" style="left:48.9%"></div></div><span class="pt-val">$1,250<em class="pos">+16.3%</em></span></div>
+          <div class="pt-row"><span class="pt-firm">Morgan Stanley<em>Overweight · 2026-09-28 维持</em></span><div class="pt-track"><div class="pt-bar up" style="width:54.5%"></div><div class="pt-baseline" style="left:48.9%"></div></div><span class="pt-val">$1,200<em class="pos">+11.6%</em></span></div>
+        </div>
+        <div class="pt-note">条形按目标价相对 $2,200（最高）缩放，零基线；基准线为 2026-10-02 收盘 $1,074.89。Goldman $1,250 为 10/01 上调（时点口径 ⚠️）。反方：Morningstar 2 星，财报后将公允价值由 $850 下调至 $700（认为周期 2028 见顶、2029 下行，Finbold）。目标价与评级均为第三方观点，不等于事实或投资建议。<a class="cite" href="https://www.marketbeat.com/stocks/NASDAQ/MU/forecast/" target="_blank" rel="noreferrer">SOURCE ↗</a></div>
+      </div>
+    </section>
+
+    <section class="section" id="events">
+      <div class="section-head"><h2>事件雷达</h2><span class="section-index">05 / EVENT RADAR</span></div>
+      <div class="panel" style="padding:0">
+        <div class="tl-sub">即将到来</div>
+        <article class="event">
+          <div class="event-date">2026-10-14<br /><span class="tag">DIVIDEND</span></div>
+          <div><h3>季度分红除息日</h3><p>分红 <strong>$0.15/股/季</strong>（$0.60 年化），除息 10/14、派发 10/29。来源：marketbeat。</p></div>
+        </article>
+        <article class="event">
+          <div class="event-date">2026-10-29<br /><span class="tag">DIVIDEND</span></div>
+          <div><h3>季度分红派发日</h3><p>派发 $0.15/股。来源：marketbeat。</p></div>
+        </article>
+        <article class="event">
+          <div class="event-date">2026-11-23<br /><span class="tag warn">⚠️ 口径</span></div>
+          <div><h3>下次财报</h3><p>11/23 下次财报（OptiView 口径 ⚠️，以公司公告为准）。Q1 FY2027 指引：营收 $60–63B、调整后 EPS $37.15–39.15。</p></div>
+        </article>
+        <article class="event">
+          <div class="event-date">2026-12-09<br /><span class="tag">CAPITAL RETURN</span></div>
+          <div><h3>大规模资本回报启动</h3><p>12 月 9 日起启动大规模资本回报计划（CFO Mark Murphy）。来源：公司财报口径，经多源交叉。</p></div>
+        </article>
+        <article class="event">
+          <div class="event-date">持续<br /><span class="tag">HBM4</span></div>
+          <div><h3>HBM4 持续放量</h3><p>HBM4 收入已破 $10 亿（Q3 起）；2027 年产出逾 75% 已承诺（committed），客户讨论已延伸至 2028 年。</p></div>
+        </article>
+
+        <div class="tl-sub">近期已发生<span>2026-09-30 至 2026-10-02 · 按时间倒序</span></div>
+        <article class="event">
+          <div class="event-date">2026-10-02<br /><span class="tag">MARKET</span></div>
+          <div><h3>-2.05% 回吐，sell-the-news</h3><p>收盘 $1,074.89，成交约 27.78M 股；财报大涨后获利了结，CleaRank 指出 RSI ~75、处超买区。</p></div>
+        </article>
+        <article class="event">
+          <div class="event-date">2026-10-01<br /><span class="tag">MARKET</span></div>
+          <div><h3>+3.03% 财报后首个交易日</h3><p>FQ4 财报后首个交易日 +3.03%，但市场讨论“AI 乐观已充分定价”，beat 本身不够（tradingnews）。Burry 加空 ⚠️（thestreet 10/01，细节未披露）。</p></div>
+        </article>
+        <article class="event">
+          <div class="event-date">2026-09-30<br /><span class="tag">EARNINGS</span></div>
+          <div><h3>FQ4 财报大超预期＋上调指引</h3><p>盘后发布：营收 $54.23B（+379% YoY）、调整后 EPS $33.42 均超预期；Q1 FY2027 指引营收 $60–63B（高于预期的 $56.77B）。</p></div>
+        </article>
+        <article class="event">
+          <div class="event-date">持续<br /><span class="tag warn">⚠️ 诉讼</span></div>
+          <div><h3>Netlist ITC 专利投诉</h3><p>Netlist 向 ITC 提起专利投诉，下游亦点名 Nvidia / Broadcom / Alphabet ⚠️（单一来源，细节未核实）。</p></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="thesis">
+      <div class="section-head"><h2>为什么关注<span class="view-flag">观点 · 非事实</span></h2><span class="section-index">06 / THESIS</span></div>
+      <article class="card">
+        <ul class="thesis-list">
+          <li><span class="num">01</span><div><h4>AI 内存超级周期：2027 年产出逾 75% 已承诺，长约锁定收入可见度<span class="view-flag">观点</span></h4><p>2027 年产出逾 75% 已承诺（committed）、客户讨论已延伸至 2028 年；战略客户协议覆盖 2030 年预计收入 35% 以上、承诺额约 $32B；剩余履约义务约 $150B、超全年营收规模（全公司口径，非 HBM 合同 backlog），行业从周期性转向“合同锁定”结构（trendforce）。</p></div></li>
+          <li><span class="num">02</span><div><h4>定价权：DRAM/NAND 双涨价，供给 2027–2028 持续紧张<span class="view-flag">观点</span></h4><p>DRAM ASP 环比涨 high-teens %、NAND ASP +30%；CEO 称 2027/2028 比 2026 更紧。FQ4 调整后毛利率 87.0%，定价权已体现在利润率。</p></div></li>
+          <li><span class="num">03</span><div><h4>去周期化论：业务正变得不那么周期性<span class="view-flag">观点</span></h4><p>Gerber Kawasaki 称“业务正变得不那么周期性”；约 $32B 的 take-or-pay 战略客户协议 + 约 $150B 剩余履约义务为收入可见度提供支撑，但周期本质是否已除仍有争议（见风险）。</p></div></li>
+          <li><span class="num">04</span><div><h4>分析师共识高于现价：中位目标 $1,545（+43.7%）<span class="view-flag">观点</span></h4><p>49 家共识/中位目标价 $1,545（CleaRank 2026-10-02）；财报后 Melius $2,200 重申居首、D.A. Davidson 上调至 $2,100、Rosenblatt 上调至 $1,900，但目标价分歧大且 ⚠️ 项需逐项看。</p></div></li>
+        </ul>
+      </article>
+    </section>
+
+    <section class="section" id="risks">
+      <div class="section-head"><h2>主要风险</h2><span class="section-index">07 / RISKS</span></div>
+      <article class="card">
+        <ul class="risk-list">
+          <li><span class="num">01</span><div><h4>预期透支：财报后首日 +3.03%、次日 -2.05% 回吐</h4><p>tradingnews 指“AI 乐观已充分定价”，beat 本身不够；10/02 回吐至 $1,074.89，RSI ~75 处超买区（CleaRank）。大涨后利好已部分定价，后续需靠指引兑现而非单纯超预期。</p></div></li>
+          <li><span class="num">02</span><div><h4>供给约束反噬：长约 + 产能瓶颈可能限制出货增速</h4><p>$32B 长约 + 产能瓶颈可能限制出货增长，增速放缓风险（fxleaders）；FY27 上半年资本开支 ~$25B 的投放节奏决定供给释放。</p></div></li>
+          <li><span class="num">03</span><div><h4>周期本质未除：2028–2029 集中产能释放或致供给过剩</h4><p>Morningstar（2 星）财报后将公允价值由 $850 下调至 $700，认为周期 2028 见顶、2029 转入下行，集中产能释放或致供给过剩；这是与“去周期化论”直接对立的核心分歧。</p></div></li>
+          <li><span class="num">04</span><div><h4>估值处历史高位：P/B 12.3，P/E 23.86</h4><p>P/B 12.3（12 个月均值 8.86），P/E 23.86，处于历史高位区间（finnhub 快照）；Beta 2.36，波动放大特征明显。</p></div></li>
+          <li><span class="num">05</span><div><h4>中国厂商长期扩产 + 知名空头加仓</h4><p>中国厂商长期扩产风险（Goldman 指出）；Michael Burry 加大空头押注（thestreet 10/01，细节未披露 ⚠️）；Netlist 专利诉讼持续。</p></div></li>
+        </ul>
+      </article>
+    </section>
+
+    <section class="source-note"><strong>研究完整性（数据基准日 2026-10-02，调研日期 2026-10-03）：</strong>图表与图内统计直接按机器可读日收盘序列（Nasdaq 官方历史 API 64 个交易日，2026-07-06 至 2026-10-02）绘制。52 周区间 $179.61（2025-10-10）至 $1,255.00（2026-06-25 历史最高）。期权结构数据截至 2026-10-01，OptiView 与 FlashAlpha 两口径并列呈现、不合并。FINRA 做空为 2026-09-15 结算期；下一结算期（2026-09-30）截至 2026-10-03 尚未发布。Morningstar 公允价值 $700 为财报后下调值。11/23 财报日期（OptiView 口径）、Netlist 投诉与 Burry 加空（单一来源、细节未披露）等 ⚠️ 项均保持标注、不编造。借券利用率与借券费率无免费公开源，未呈现也未估算。单源数据已在相应条目逐项标注。</section>
+
+    <footer>价格卡可刷新实时报价；其余为截至 2026-10-02 美股收盘的静态研究快照（期权结构截至 2026-10-01），不构成证券研究报告或投资建议。引用链接打开第三方原始页面。</footer>
+  </main>
+
+  <script>
+    (function () {
+      var data = [['2026-07-06',984.75],['2026-07-07',938.38],['2026-07-08',948.80],['2026-07-09',991.64],['2026-07-10',979.30],['2026-07-13',937.00],['2026-07-14',983.12],['2026-07-15',904.28],['2026-07-16',853.20],['2026-07-17',848.95],['2026-07-20',865.46],['2026-07-21',970.82],['2026-07-22',959.48],['2026-07-23',990.21],['2026-07-24',920.95],['2026-07-27',900.20],['2026-07-28',820.53],['2026-07-29',739.00],['2026-07-30',874.66],['2026-07-31',823.03],['2026-08-03',829.50],['2026-08-04',892.67],['2026-08-05',893.19],['2026-08-06',881.47],['2026-08-07',877.57],['2026-08-10',861.00],['2026-08-11',868.52],['2026-08-12',911.29],['2026-08-13',949.83],['2026-08-14',971.66],['2026-08-17',1011.75],['2026-08-18',940.76],['2026-08-19',937.11],['2026-08-20',974.33],['2026-08-21',966.78],['2026-08-24',910.43],['2026-08-25',932.97],['2026-08-26',938.40],['2026-08-27',935.39],['2026-08-28',932.86],['2026-08-31',958.73],['2026-09-01',933.44],['2026-09-02',956.08],['2026-09-03',958.16],['2026-09-04',1016.59],['2026-09-08',1000.26],['2026-09-09',1027.77],['2026-09-10',977.41],['2026-09-11',975.26],['2026-09-14',924.03],['2026-09-15',927.60],['2026-09-16',926.55],['2026-09-17',977.50],['2026-09-18',1015.80],['2026-09-21',1043.96],['2026-09-22',1096.16],['2026-09-23',1071.88],['2026-09-24',1080.53],['2026-09-25',1082.28],['2026-09-28',1053.98],['2026-09-29',1065.08],['2026-09-30',1065.11],['2026-10-01',1097.39],['2026-10-02',1074.89]];
+      var svg = document.getElementById('priceChart');
+      var readout = document.getElementById('chartReadout');
+      var stats = document.getElementById('chartStats');
+      var buttons = document.querySelectorAll('[data-range]');
+      var markers = [
+        {d:'2026-07-29', label:'区间低点 $739'},
+        {d:'2026-09-04', label:'突破 $1,000'},
+        {d:'2026-09-30', label:'FQ4 财报发布'},
+        {d:'2026-10-01', label:'财报后首日 +3.03%', anchor:'end', dx:-8}
+      ];
+      var active = 'all', visible = data, state = null;
+      function parseDate(v) { return new Date(v + 'T00:00:00Z').getTime(); }
+      function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;'); }
+      function text(x, y, value, anchor, size, color) {
+        return '<text x="'+x+'" y="'+y+'" text-anchor="'+(anchor||'start')+'" fill="'+(color||'var(--muted)')+'" font-family="IBM Plex Mono, monospace" font-size="'+(size||11)+'">'+esc(value)+'</text>';
+      }
+      function render() {
+        visible = active === '1m' ? data.slice(-22) : data.slice();
+        var W=960, H=360, l=64, r=18, t=34, b=42;
+        var times = visible.map(function (d){ return parseDate(d[0]); });
+        var vals = visible.map(function (d){ return d[1]; });
+        var minT = Math.min.apply(null,times), maxT = Math.max.apply(null,times);
+        var minV = Math.min.apply(null,vals), maxV = Math.max.apply(null,vals);
+        var pad = Math.max((maxV-minV)*.10, 2);
+        var yMin = minV-pad, yMax = maxV+pad;
+        function x(i){ return l + (times[i]-minT)/((maxT-minT)||1) * (W-l-r); }
+        function y(v){ return t + (yMax-v)/(yMax-yMin) * (H-t-b); }
+        var path = visible.map(function (d,i){ return (i?'L':'M')+x(i).toFixed(2)+','+y(d[1]).toFixed(2); }).join(' ');
+        var area = path+' L '+x(visible.length-1).toFixed(2)+','+(H-b)+' L '+x(0).toFixed(2)+','+(H-b)+' Z';
+        var idx = {}; visible.forEach(function (d,i){ idx[d[0]] = i; });
+        var out = '<defs><linearGradient id="areaFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="var(--chart)" stop-opacity=".28"/><stop offset="100%" stop-color="var(--chart)" stop-opacity="0"/></linearGradient></defs>';
+        for (var j=0;j<5;j++){
+          var tv = yMin+(yMax-yMin)*(4-j)/4, yy = t+(H-t-b)*j/4;
+          out += '<line x1="'+l+'" y1="'+yy+'" x2="'+(W-r)+'" y2="'+yy+'" stroke="var(--line)" stroke-width="1"/>';
+          out += text(l-10, yy+4, '$'+Math.round(tv), 'end');
+        }
+        var ticks = [0, Math.floor((visible.length-1)/3), Math.floor((visible.length-1)*2/3), visible.length-1];
+        ticks.forEach(function (i,k){
+          var a = k===0?'start':(k===3?'end':'middle');
+          out += text(x(i), H-14, visible[i][0].slice(5), a);
+        });
+        markers.forEach(function (m, k){
+          if (!(m.d in idx)) return;
+          var i = idx[m.d], px = x(i), py = y(visible[i][1]);
+          out += '<line x1="'+px+'" y1="'+(t-14)+'" x2="'+px+'" y2="'+py+'" stroke="var(--line-strong)" stroke-width="1" stroke-dasharray="4 3" opacity=".8"/>';
+          out += '<circle cx="'+px+'" cy="'+py+'" r="3.4" fill="var(--warning)" stroke="var(--surface)" stroke-width="1.2"/>';
+          var a = m.anchor || ((k===markers.length-1) ? 'end' : 'middle');
+          var lx = a==='middle' ? px : (m.dx===undefined && a==='end' ? Math.min(px+2, W-r) : px + (m.dx||0));
+          out += text(lx, t-20, m.label, a, 10.5);
+        });
+        out += '<path d="'+area+'" fill="url(#areaFill)"/>';
+        out += '<path d="'+path+'" fill="none" stroke="var(--chart)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>';
+        var iMin=0, iMax=0;
+        vals.forEach(function (v,i){ if (v<vals[iMin]) iMin=i; if (v>vals[iMax]) iMax=i; });
+        out += '<circle cx="'+x(iMin)+'" cy="'+y(vals[iMin])+'" r="4" fill="var(--danger)" stroke="var(--surface)" stroke-width="1.6"/>';
+        out += '<circle cx="'+x(iMax)+'" cy="'+y(vals[iMax])+'" r="4" fill="var(--chart)" stroke="var(--surface)" stroke-width="1.6"/>';
+        out += text(Math.min(x(iMin)-8, W-r-44), y(vals[iMin])+18, '$'+vals[iMin].toFixed(2), 'end', 10.5, 'var(--danger)');
+        out += text(Math.max(x(iMax)-8, l), y(vals[iMax])-12, '$'+vals[iMax].toFixed(2), 'end', 10.5, 'var(--chart)');
+        out += '<line id="cursorLine" x1="0" x2="0" y1="'+t+'" y2="'+(H-b)+'" stroke="var(--line-strong)" stroke-width="1" opacity="0"/>';
+        out += '<circle id="cursorDot" cx="0" cy="0" r="5" fill="var(--surface)" stroke="var(--chart)" stroke-width="3" opacity="0"/>';
+        svg.innerHTML = out;
+        state = {W:W,l:l,r:r,t:t,b:b,minT:minT,maxT:maxT,y:y,x:x};
+        var low = visible[iMin], high = visible[iMax];
+        var first = visible[0][1], last = visible[visible.length-1][1];
+        var chg = (last-first)/first*100;
+        var sign = chg >= 0 ? '+' : '';
+        stats.innerHTML = '<span>交易日 '+visible.length+'</span>' +
+          '<span>最新收盘 <b style="color:var(--ink)">$'+last.toFixed(2)+' · '+visible[visible.length-1][0].slice(2)+'</b></span>' +
+          '<span>区间最高收盘 <b style="color:var(--chart)">$'+high[1].toFixed(2)+' · '+high[0].slice(2)+'</b></span>' +
+          '<span>区间最低收盘 <b style="color:var(--danger)">$'+low[1].toFixed(2)+' · '+low[0].slice(2)+'</b></span>' +
+          '<span>首尾变化 <b class="'+(chg>=0?'pos':'neg')+'">'+sign+chg.toFixed(1)+'%</b></span>';
+        svg.setAttribute('aria-label','MU 自 '+visible[0][0]+' 至 '+visible[visible.length-1][0]+' 每日收盘价折线图：最新收盘 $'+last.toFixed(2)+'（'+visible[visible.length-1][0]+'），区间最高收盘 $'+high[1].toFixed(2)+'（'+high[0]+'），区间最低收盘 $'+low[1].toFixed(2)+'（'+low[0]+'），首尾变化 '+sign+chg.toFixed(1)+'%');
+      }
+      function onMove(evt) {
+        if (!state) return;
+        var rect = svg.getBoundingClientRect();
+        var clientX = evt.touches ? evt.touches[0].clientX : evt.clientX;
+        var px = (clientX - rect.left) * state.W / rect.width;
+        var frac = (px - state.l) / (state.W - state.l - state.r);
+        var target = state.minT + frac * (state.maxT - state.minT);
+        var best = 0, bestD = Infinity;
+        for (var i=0;i<visible.length;i++){
+          var d = Math.abs(parseDate(visible[i][0]) - target);
+          if (d < bestD){ bestD = d; best = i; }
+        }
+        var cx = state.x(best), cy = state.y(visible[best][1]);
+        var line = svg.querySelector('#cursorLine'), dot = svg.querySelector('#cursorDot');
+        if (line && dot){
+          line.setAttribute('x1',cx); line.setAttribute('x2',cx); line.setAttribute('opacity','1');
+          dot.setAttribute('cx',cx); dot.setAttribute('cy',cy); dot.setAttribute('opacity','1');
+        }
+        var prev = best > 0 ? visible[best-1][1] : null;
+        var dl = '';
+        if (prev != null){
+          var dch = ((visible[best][1]-prev)/prev*100);
+          dl = ' · '+(dch>=0?'+':'')+dch.toFixed(2)+'%';
+        }
+        readout.textContent = visible[best][0]+'  收盘 $'+visible[best][1].toFixed(2)+dl;
+      }
+      function onLeave() {
+        var line = svg.querySelector('#cursorLine'), dot = svg.querySelector('#cursorDot');
+        if (line) line.setAttribute('opacity','0');
+        if (dot) dot.setAttribute('opacity','0');
+        readout.textContent = '移动指针查看日期与收盘价';
+      }
+      svg.addEventListener('mousemove', onMove);
+      svg.addEventListener('mouseleave', onLeave);
+      svg.addEventListener('touchstart', onMove, {passive:true});
+      svg.addEventListener('touchmove', onMove, {passive:true});
+      svg.addEventListener('touchend', onLeave);
+      for (var bi=0; bi<buttons.length; bi++){
+        buttons[bi].addEventListener('click', function () {
+          active = this.getAttribute('data-range');
+          for (var k=0;k<buttons.length;k++){ buttons[k].setAttribute('aria-pressed', buttons[k]===this ? 'true' : 'false'); }
+          onLeave(); render();
+        });
+      }
+      render();
+    })();
+  </script>
+
+  <!-- 实时行情刷新：quote.json 快照 → Nasdaq 直连 → Yahoo → Stooq（mu.us） -->
+  <script>
+    (function () {
+      /* ===== 实时行情刷新（仅更新价格卡；财务/做空/分析师/事件保持静态快照） =====
+         quote.json 标准格式（由 GitHub Actions 每 15 分钟依据 Nasdaq 官方 API 写入本页同目录）：
+         { "symbol":"MU", "price":1097.39, "netChange":32.28, "pctChange":3.03,
+           "prevClose":1065.11, "quoteTime":"2026-10-01 12:05", "status":"intraday", "source":"Nasdaq" }
+         字段宽容：price 也可叫 lastSalePrice；pctChange 也可叫 percentageChange；
+         quoteTime 也可叫 quoteTimeET / lastTradeTimestamp；status 接受 intraday/close/premarket/postmarket。 */
+      var btn = document.getElementById('refreshQuote');
+      var tag = document.getElementById('quoteStateTag');
+      var priceEl = document.getElementById('quotePrice');
+      var chgEl = document.getElementById('quoteChg');
+      var metaEl = document.getElementById('quoteMeta');
+      if (!btn) return;
+
+      function numOf(x) {
+        if (typeof x === 'number') return x;
+        if (typeof x === 'string') {
+          var n = parseFloat(x.replace(/[$,\s%]/g, ''));
+          return isNaN(n) ? NaN : n;
+        }
+        return NaN;
+      }
+      function fetchWithTimeout(url, timeoutMs) {
+        var ctrl = new AbortController();
+        var finished = false;
+        return new Promise(function (resolve, reject) {
+          var to = setTimeout(function () {
+            if (!finished) { finished = true; ctrl.abort(); reject(new Error('timeout')); }
+          }, timeoutMs || 9000);
+          fetch(url, { cache: 'no-store', signal: ctrl.signal }).then(function (res) {
+            if (finished) return;
+            finished = true; clearTimeout(to);
+            res.ok ? resolve(res) : reject(new Error('HTTP ' + res.status));
+          }).catch(function (e) {
+            if (!finished) { finished = true; clearTimeout(to); reject(e); }
+          });
+        });
+      }
+      function fetchJson(url, t) { return fetchWithTimeout(url, t).then(function (r) { return r.json(); }); }
+      function fetchText(url, t) { return fetchWithTimeout(url, t).then(function (r) { return r.text(); }); }
+
+      function etParts(d) {
+        var parts = new Intl.DateTimeFormat('en-US', { timeZone: 'America/New_York', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', weekday: 'short', hour12: false }).formatToParts(d);
+        var o = {};
+        parts.forEach(function (p) { o[p.type] = p.value; });
+        return o;
+      }
+      function etDateTime(d) {
+        var o = etParts(d);
+        return o.year + '-' + o.month + '-' + o.day + ' ' + o.hour + ':' + o.minute;
+      }
+      function inMarketHours() {
+        var o = etParts(new Date());
+        if (o.weekday === 'Sat' || o.weekday === 'Sun') return false;
+        var mins = parseInt(o.hour, 10) * 60 + parseInt(o.minute, 10);
+        return mins >= 570 && mins <= 960;
+      }
+      function statusFromClock() { return inMarketHours() ? 'intraday' : 'close'; }
+      function statusText(s) {
+        return s === 'intraday' ? '盘中' : (s === 'close' ? '收盘' : (s === 'premarket' ? '盘前' : (s === 'postmarket' ? '盘后' : (s || '—'))));
+      }
+      function cleanCSV(s) { return String(s || '').replace(/"/g, '').trim(); }
+
+      function loadQuoteJson() {
+        return fetchJson('quote.json?v=' + Date.now(), 8000).then(function (j) {
+          var price = numOf(j.price != null ? j.price : j.lastSalePrice);
+          if (isNaN(price)) throw new Error('quote.json empty');
+          var rawTime = j.quoteTime || j.quoteTimeET || j.lastTradeTimestamp || '';
+          if (inMarketHours() && rawTime) {
+            /* 开盘时段新鲜度检查：quoteTime 必须是美东今天、且距当前美东时间不超过 30 分钟，
+               否则视为过期快照，抛错让刷新链继续走 Nasdaq 直连 → Yahoo → Stooq。
+               非开盘时段不检查，收盘快照照常渲染。 */
+            var qm = String(rawTime).match(/(\d{4})-(\d{2})-(\d{2})[T ](\d{2}):(\d{2})/);
+            if (qm) {
+              var np = etParts(new Date());
+              var qDate = qm[1] + '-' + qm[2] + '-' + qm[3];
+              var today = np.year + '-' + np.month + '-' + np.day;
+              var qEpoch = Date.UTC(+qm[1], +qm[2] - 1, +qm[3], +qm[4], +qm[5]);
+              var nEpoch = Date.UTC(+np.year, +np.month - 1, +np.day, +np.hour, +np.minute);
+              if (qDate !== today || (nEpoch - qEpoch) / 60000 > 30) throw new Error('quote.json stale');
+            }
+          }
+          var net = numOf(j.netChange);
+          var pct = numOf(j.pctChange != null ? j.pctChange : j.percentageChange);
+          var prev = numOf(j.prevClose);
+          if (isNaN(pct) && !isNaN(net) && !isNaN(prev) && prev) pct = net / prev * 100;
+          if (isNaN(net) && !isNaN(pct) && !isNaN(prev) && prev) net = prev * pct / 100;
+          return {
+            price: price, netChange: net, pctChange: pct, prevClose: prev,
+            time: rawTime || etDateTime(new Date()),
+            status: j.status || j.marketStatus || statusFromClock(),
+            source: (j.source || 'Nasdaq') + ' · GitHub 定时拉取'
+          };
+        });
+      }
+      function loadNasdaq() {
+        return fetchJson('https://api.nasdaq.com/api/quote/MU/info?assetclass=stocks', 9000).then(function (j) {
+          var d = (j && j.data) || {};
+          var price = numOf(d.lastSalePrice);
+          if (isNaN(price)) throw new Error('nasdaq empty');
+          return {
+            price: price, netChange: numOf(d.netChange), pctChange: numOf(d.percentageChange),
+            prevClose: NaN, time: etDateTime(new Date()), status: statusFromClock(),
+            source: 'Nasdaq 官方 API（直连）'
+          };
+        });
+      }
+      function loadYahoo() {
+        return fetchJson('https://query1.finance.yahoo.com/v8/finance/chart/MU?range=1d&interval=1d', 9000).then(function (j) {
+          var m = (j && j.chart && j.chart.result && j.chart.result[0] && j.chart.result[0].meta) || {};
+          var price = numOf(m.regularMarketPrice);
+          if (isNaN(price)) throw new Error('yahoo empty');
+          var prev = numOf(m.chartPreviousClose != null ? m.chartPreviousClose : m.previousClose);
+          var net = isNaN(prev) ? NaN : price - prev;
+          var pct = isNaN(net) || !prev ? NaN : net / prev * 100;
+          var ts = m.regularMarketTime ? new Date(m.regularMarketTime * 1000) : new Date();
+          var st = { REGULAR: 'intraday', PREMARKET: '盘前', POSTMARKET: '盘后', CLOSED: 'close' }[m.marketState];
+          return {
+            price: price, netChange: net, pctChange: pct, prevClose: prev,
+            time: etDateTime(ts), status: st || statusFromClock(), source: 'Yahoo Finance（直连）'
+          };
+        });
+      }
+      function loadStooq() {
+        return fetchText('https://stooq.com/q/l/?s=mu.us&f=sd2t2ohlcv&h&e=csv', 9000).then(function (csv) {
+          var rows = csv.trim().split(/\r?\n/);
+          if (rows.length < 2) throw new Error('stooq empty');
+          var f = rows[rows.length - 1].split(',');
+          var qDate = cleanCSV(f[1]), price = numOf(cleanCSV(f[6]));
+          if (!qDate || isNaN(price)) throw new Error('stooq no quote');
+          var quote = {
+            price: price, netChange: NaN, pctChange: NaN, prevClose: NaN,
+            time: qDate + ' ' + cleanCSV(f[2]).slice(0, 5),
+            status: statusFromClock(), source: 'Stooq（mu.us 直连）'
+          };
+          return fetchText('https://stooq.com/q/d/l/?s=mu.us&i=d', 9000).then(function (daily) {
+            var dr = daily.trim().split(/\r?\n/).filter(function (l) { return l && l.indexOf('Date') !== 0; });
+            var todayRow = null, prevRow = null;
+            dr.forEach(function (l) {
+              var c = l.split(','), d = cleanCSV(c[0]);
+              if (d === qDate) todayRow = c;
+              else if (d < qDate) prevRow = c;
+            });
+            var c2 = prevRow ? numOf(cleanCSV(prevRow[4])) : NaN;
+            if (!inMarketHours() && todayRow) {
+              var c1 = numOf(cleanCSV(todayRow[4]));
+              if (!isNaN(c1)) { quote.price = c1; quote.time = qDate + ' 16:00'; quote.status = 'close'; }
+            }
+            if (!isNaN(c2) && c2) {
+              quote.prevClose = c2;
+              quote.netChange = quote.price - c2;
+              quote.pctChange = (quote.price - c2) / c2 * 100;
+            }
+            return quote;
+          }).catch(function () { return quote; });
+        });
+      }
+
+      function render(q) {
+        priceEl.textContent = '$' + q.price.toFixed(2);
+        if (!isNaN(q.pctChange)) {
+          var up = q.pctChange >= 0;
+          var netTxt = isNaN(q.netChange) ? '' : (up ? '+' : '') + q.netChange.toFixed(2) + ' · ';
+          chgEl.textContent = netTxt + (up ? '+' : '') + q.pctChange.toFixed(2) + '%';
+          chgEl.className = 'chg ' + (up ? 'pos' : 'neg');
+        } else {
+          chgEl.textContent = '—';
+          chgEl.className = 'chg';
+        }
+        var stx = statusText(q.status);
+        tag.textContent = stx + ' · 已刷新';
+        tag.className = 'tag' + (q.status === 'intraday' ? ' warn' : '');
+        metaEl.textContent = '报价 ' + (q.time || '—') + ' ET · ' + stx +
+          (isNaN(q.prevClose) ? '' : ' · 较前收盘 $' + q.prevClose.toFixed(2)) +
+          ' · 来源 ' + q.source;
+      }
+
+      function tryChain(sources) {
+        if (!sources.length) return Promise.reject(new Error('all sources failed'));
+        return sources[0]().catch(function () { return tryChain(sources.slice(1)); });
+      }
+      function refreshQuote(silent) {
+        if (btn.disabled) return;
+        btn.disabled = true;
+        var label = btn.textContent;
+        if (!silent) btn.textContent = '⟳ 正在刷新…';
+        function done() { btn.disabled = false; btn.textContent = label; }
+        tryChain([loadQuoteJson, loadNasdaq, loadYahoo, loadStooq]).then(function (q) {
+          render(q); done();
+        }, function () {
+          if (!silent) {
+            tag.textContent = '刷新失败';
+            tag.className = 'tag unavailable';
+            metaEl.textContent = 'quote.json / Nasdaq / Yahoo / Stooq 均不可达，已保留上一报价 · 点击再试一次';
+          }
+          done();
+        });
+      }
+
+      btn.addEventListener('click', function () { refreshQuote(false); });
+      if (inMarketHours()) refreshQuote(true);
+    })();
+  </script>
+</body>
+</html>
