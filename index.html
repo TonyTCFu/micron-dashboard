@@ -369,7 +369,7 @@
 
     <section class="section" id="options-structure">
       <div class="section-head"><h2>期权结构</h2><span class="section-index">01A / OPTIONS STRUCTURE</span></div>
-      <p style="margin:0 0 12px;font-size:13px;color:var(--muted)">数据截至 2026-10-02（美东，FlashAlpha 快照）；OptiView 指标仍为 2026-10-01（来源尚未滚动至 2026-10-02），每周更新</p>
+      <p style="margin:0 0 12px;font-size:13px;color:var(--muted)">数据截至 2026-10-02（美东，FlashAlpha 快照）；OptiView 指标 2026-10-02（全部到期日口径），每周更新</p>
 
       <div class="panel" style="padding:16px 18px;margin-bottom:12px;border-left:4px solid var(--accent)">
         <div style="display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;margin-bottom:8px">
@@ -383,13 +383,16 @@
         <div class="datum"><span class="k">净做市商 GEX</span><span class="v pos">约 +$1.2B</span><span class="k">FlashAlpha 快照 2026-10-02 13:43 ET（FlashAlpha 口径）</span></div>
         <div class="datum"><span class="k">Call Wall</span><span class="v">$1,100</span><span class="k">阻力参考 · FlashAlpha 最大 Call Gamma 集中位（2026-10-02 13:43 ET）</span></div>
         <div class="datum"><span class="k">Put Wall</span><span class="v">$1,070</span><span class="k">支撑参考 · FlashAlpha 最大 Put Gamma 集中位（2026-10-02 13:43 ET）</span></div>
-        <div class="datum"><span class="k">Max Pain</span><span class="v">$865</span><span class="k">做市商对冲参考位 · OptiView 2026-10-01（尚未滚动）</span></div>
-        <div class="datum"><span class="k">Put-Call 未平仓比</span><span class="v">1.01</span><span class="k">Call 1,667,168 张／Put 1,677,412 张 · OptiView 2026-10-01（尚未滚动）</span></div>
-        <div class="datum"><span class="k">30 天 ATM IV</span><span class="v">45.6%</span><span class="k">FlashAlpha 2026-10-02；OptiView 55.7%（2026-10-01，尚未滚动）、IV Rank 5/100（OptiView 2026-10-01）</span></div>
-        <div class="datum"><span class="k">期权隐含预期波幅</span><span class="v">±$171.59 <small>±15.7%</small></span><span class="k">OptiView 2026-10-01（尚未滚动至 2026-10-02）</span></div>
+        <div class="datum"><span class="k">Max Pain（全部到期日口径）</span><span class="v">$885</span><span class="k">距 10/2 收盘 −17.7% · 做市商对冲参考位 · OptiView 2026-10-02</span></div>
+        <div class="datum"><span class="k">Put-Call 未平仓比</span><span class="v">1.01</span><span class="k">Call 未平仓 1,746,991 张／Put 未平仓 1,757,067 张 · P/C 比 1.01 · OptiView 2026-10-02</span></div>
+        <div class="datum"><span class="k">30 天 ATM IV</span><span class="v">45.6%</span><span class="k">FlashAlpha 2026-10-02；OptiView ATM IV 46.8%（2026-10-02）、IV Rank 0/100（OptiView 2026-10-02）；财报后 IV Crush，由 55.7%／Rank 5（2026-10-01）回落</span></div>
+        <div class="datum"><span class="k">期权隐含预期波幅</span><span class="v">±$98.54 <small>约 ±9.2%</small></span><span class="k">OptiView 2026-10-02</span></div>
       </div>
 
-      <p style="margin:12px 0 0;font-size:12px;color:var(--muted);line-height:1.7">数据来源 OptiView、FlashAlpha（OPRA 延迟数据）。Call/Put Wall 与 Max Pain 为做市商对冲参考位，不构成买卖建议。Gamma Flip 各模型分歧较大，本板块不列固定数值。GEX 正负基于“做市商持有与公开订单流相反头寸”的模型假设。</p>
+      <p style="margin:12px 0 0;font-size:13px;color:var(--muted);line-height:1.7">现价位置（10/2 收盘 vs Wall）：收盘 $1,074.89，Put Wall $1,070 在下方约 0.5%（贴近下墙支撑）；Call Wall $1,100 在上方约 2.3%</p>
+      <p style="margin:6px 0 0;font-size:13px;color:var(--muted);line-height:1.7">成交异动（OptiView 2026-10-02）：当日成交最热行权价 $1,100；全链成交量 / 未平仓量比 1.68</p>
+
+      <p style="margin:12px 0 0;font-size:12px;color:var(--muted);line-height:1.7">数据来源 OptiView、FlashAlpha（OPRA 延迟数据）。Call/Put Wall 与 Max Pain 为做市商对冲参考位，不构成买卖建议。Gamma Flip 各模型分歧较大，本板块不列固定数值。GEX 正负基于“做市商持有与公开订单流相反头寸”的模型假设。Max Pain 为全部到期日合约口径，包含远月合约，数值通常低于最近到期口径（例如近月口径约 $1,045），两者不可直接比较。</p>
     </section>
 
     <section class="section" id="financials">
