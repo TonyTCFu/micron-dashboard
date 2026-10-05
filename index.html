@@ -670,15 +670,15 @@
     })();
   </script>
 
-  <!-- 实时行情刷新：quote.json 快照 → Nasdaq 直连 → Yahoo → Stooq（mu.us） -->
+  <!-- Real-time quote refresh: same-origin quote.json snapshot only. -->
   <script>
     (function () {
-      /* ===== 实时行情刷新（仅更新价格卡；财务/做空/分析师/事件保持静态快照） =====
-         quote.json 标准格式（由 GitHub Actions 每 15 分钟依据 Nasdaq 官方 API 写入本页同目录）：
+      /* ===== Real-time quote refresh (price card only; all research sections remain static) =====
+         quote.json is updated every 15 minutes by GitHub Actions using the Nasdaq API:
          { "symbol":"MU", "price":1097.39, "netChange":32.28, "pctChange":3.03,
            "prevClose":1065.11, "quoteTime":"2026-10-01 12:05", "status":"intraday", "source":"Nasdaq" }
-         字段宽容：price 也可叫 lastSalePrice；pctChange 也可叫 percentageChange；
-         quoteTime 也可叫 quoteTimeET / lastTradeTimestamp；status 接受 intraday/close/premarket/postmarket。 */
+         Accepted aliases: price may be lastSalePrice; pctChange may be percentageChange;
+         quoteTime may be quoteTimeET or lastTradeTimestamp; status may be intraday/close/premarket/postmarket. */
       var btn = document.getElementById('refreshQuote');
       var tag = document.getElementById('quoteStateTag');
       var priceEl = document.getElementById('quotePrice');
@@ -711,7 +711,6 @@
         });
       }
       function fetchJson(url, t) { return fetchWithTimeout(url, t).then(function (r) { return r.json(); }); }
-      function fetchText(url, t) { return fetchWithTimeout(url, t).then(function (r) { return r.text(); }); }
 
       function etParts(d) {
         var parts = new Intl.DateTimeFormat('en-US', { timeZone: 'America/New_York', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', weekday: 'short', hour12: false }).formatToParts(d);
@@ -719,41 +718,30 @@
         parts.forEach(function (p) { o[p.type] = p.value; });
         return o;
       }
-      function etDateTime(d) {
-        var o = etParts(d);
-        return o.year + '-' + o.month + '-' + o.day + ' ' + o.hour + ':' + o.minute;
-      }
       function inMarketHours() {
         var o = etParts(new Date());
         if (o.weekday === 'Sat' || o.weekday === 'Sun') return false;
         var mins = parseInt(o.hour, 10) * 60 + parseInt(o.minute, 10);
-        return mins >= 570 && mins <= 960;
+        return mins >= 570 && mins <= 960; // ET Monday-Friday, 09:30-16:00.
       }
       function statusFromClock() { return inMarketHours() ? 'intraday' : 'close'; }
       function statusText(s) {
         return s === 'intraday' ? '盘中' : (s === 'close' ? '收盘' : (s === 'premarket' ? '盘前' : (s === 'postmarket' ? '盘后' : (s || '—'))));
       }
-      function cleanCSV(s) { return String(s || '').replace(/"/g, '').trim(); }
+      function snapshotAgeMinutes(timeStr) {
+        var m = /^(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2})$/.exec(String(timeStr || ''));
+        if (!m) return NaN;
+        var now = etParts(new Date());
+        var nowWallTime = Date.UTC(parseInt(now.year, 10), parseInt(now.month, 10) - 1, parseInt(now.day, 10), parseInt(now.hour, 10), parseInt(now.minute, 10));
+        var quoteWallTime = Date.UTC(parseInt(m[1], 10), parseInt(m[2], 10) - 1, parseInt(m[3], 10), parseInt(m[4], 10), parseInt(m[5], 10));
+        return Math.max(0, Math.floor((nowWallTime - quoteWallTime) / 60000));
+      }
 
+      /* Fetch only the same-origin quote.json snapshot. Stale snapshots remain visible with an age warning during market hours. */
       function loadQuoteJson() {
         return fetchJson('quote.json?v=' + Date.now(), 8000).then(function (j) {
           var price = numOf(j.price != null ? j.price : j.lastSalePrice);
           if (isNaN(price)) throw new Error('quote.json empty');
-          var rawTime = j.quoteTime || j.quoteTimeET || j.lastTradeTimestamp || '';
-          if (inMarketHours() && rawTime) {
-            /* 开盘时段新鲜度检查：quoteTime 必须是美东今天、且距当前美东时间不超过 30 分钟，
-               否则视为过期快照，抛错让刷新链继续走 Nasdaq 直连 → Yahoo → Stooq。
-               非开盘时段不检查，收盘快照照常渲染。 */
-            var qm = String(rawTime).match(/(\d{4})-(\d{2})-(\d{2})[T ](\d{2}):(\d{2})/);
-            if (qm) {
-              var np = etParts(new Date());
-              var qDate = qm[1] + '-' + qm[2] + '-' + qm[3];
-              var today = np.year + '-' + np.month + '-' + np.day;
-              var qEpoch = Date.UTC(+qm[1], +qm[2] - 1, +qm[3], +qm[4], +qm[5]);
-              var nEpoch = Date.UTC(+np.year, +np.month - 1, +np.day, +np.hour, +np.minute);
-              if (qDate !== today || (nEpoch - qEpoch) / 60000 > 30) throw new Error('quote.json stale');
-            }
-          }
           var net = numOf(j.netChange);
           var pct = numOf(j.pctChange != null ? j.pctChange : j.percentageChange);
           var prev = numOf(j.prevClose);
@@ -761,75 +749,11 @@
           if (isNaN(net) && !isNaN(pct) && !isNaN(prev) && prev) net = prev * pct / 100;
           return {
             price: price, netChange: net, pctChange: pct, prevClose: prev,
-            time: rawTime || etDateTime(new Date()),
-            status: j.status || j.marketStatus || statusFromClock(),
-            source: (j.source || 'Nasdaq') + ' · GitHub 定时拉取'
+            time: j.quoteTime || j.quoteTimeET || j.lastTradeTimestamp || '',
+            status: j.status || j.marketStatus || statusFromClock()
           };
         });
       }
-      function loadNasdaq() {
-        return fetchJson('https://api.nasdaq.com/api/quote/MU/info?assetclass=stocks', 9000).then(function (j) {
-          var d = (j && j.data) || {};
-          var price = numOf(d.lastSalePrice);
-          if (isNaN(price)) throw new Error('nasdaq empty');
-          return {
-            price: price, netChange: numOf(d.netChange), pctChange: numOf(d.percentageChange),
-            prevClose: NaN, time: etDateTime(new Date()), status: statusFromClock(),
-            source: 'Nasdaq 官方 API（直连）'
-          };
-        });
-      }
-      function loadYahoo() {
-        return fetchJson('https://query1.finance.yahoo.com/v8/finance/chart/MU?range=1d&interval=1d', 9000).then(function (j) {
-          var m = (j && j.chart && j.chart.result && j.chart.result[0] && j.chart.result[0].meta) || {};
-          var price = numOf(m.regularMarketPrice);
-          if (isNaN(price)) throw new Error('yahoo empty');
-          var prev = numOf(m.chartPreviousClose != null ? m.chartPreviousClose : m.previousClose);
-          var net = isNaN(prev) ? NaN : price - prev;
-          var pct = isNaN(net) || !prev ? NaN : net / prev * 100;
-          var ts = m.regularMarketTime ? new Date(m.regularMarketTime * 1000) : new Date();
-          var st = { REGULAR: 'intraday', PREMARKET: '盘前', POSTMARKET: '盘后', CLOSED: 'close' }[m.marketState];
-          return {
-            price: price, netChange: net, pctChange: pct, prevClose: prev,
-            time: etDateTime(ts), status: st || statusFromClock(), source: 'Yahoo Finance（直连）'
-          };
-        });
-      }
-      function loadStooq() {
-        return fetchText('https://stooq.com/q/l/?s=mu.us&f=sd2t2ohlcv&h&e=csv', 9000).then(function (csv) {
-          var rows = csv.trim().split(/\r?\n/);
-          if (rows.length < 2) throw new Error('stooq empty');
-          var f = rows[rows.length - 1].split(',');
-          var qDate = cleanCSV(f[1]), price = numOf(cleanCSV(f[6]));
-          if (!qDate || isNaN(price)) throw new Error('stooq no quote');
-          var quote = {
-            price: price, netChange: NaN, pctChange: NaN, prevClose: NaN,
-            time: qDate + ' ' + cleanCSV(f[2]).slice(0, 5),
-            status: statusFromClock(), source: 'Stooq（mu.us 直连）'
-          };
-          return fetchText('https://stooq.com/q/d/l/?s=mu.us&i=d', 9000).then(function (daily) {
-            var dr = daily.trim().split(/\r?\n/).filter(function (l) { return l && l.indexOf('Date') !== 0; });
-            var todayRow = null, prevRow = null;
-            dr.forEach(function (l) {
-              var c = l.split(','), d = cleanCSV(c[0]);
-              if (d === qDate) todayRow = c;
-              else if (d < qDate) prevRow = c;
-            });
-            var c2 = prevRow ? numOf(cleanCSV(prevRow[4])) : NaN;
-            if (!inMarketHours() && todayRow) {
-              var c1 = numOf(cleanCSV(todayRow[4]));
-              if (!isNaN(c1)) { quote.price = c1; quote.time = qDate + ' 16:00'; quote.status = 'close'; }
-            }
-            if (!isNaN(c2) && c2) {
-              quote.prevClose = c2;
-              quote.netChange = quote.price - c2;
-              quote.pctChange = (quote.price - c2) / c2 * 100;
-            }
-            return quote;
-          }).catch(function () { return quote; });
-        });
-      }
-
       function render(q) {
         priceEl.textContent = '$' + q.price.toFixed(2);
         if (!isNaN(q.pctChange)) {
@@ -842,37 +766,46 @@
           chgEl.className = 'chg';
         }
         var stx = statusText(q.status);
-        tag.textContent = stx + ' · 已刷新';
-        tag.className = 'tag' + (q.status === 'intraday' ? ' warn' : '');
+        tag.style.whiteSpace = 'normal';
+        if (inMarketHours()) {
+          var age = snapshotAgeMinutes(q.time);
+          if (isNaN(age)) {
+            tag.textContent = '快照时间未知';
+            tag.className = 'tag warn';
+          } else if (age > 90) {
+            tag.textContent = '快照已过期（' + Math.floor(age / 60) + ' 小时 ' + (age % 60) + ' 分钟前）';
+            tag.className = 'tag warn';
+          } else {
+            tag.textContent = '快照 ' + age + ' 分钟前';
+            tag.className = 'tag';
+          }
+        } else {
+          tag.textContent = stx;
+          tag.className = 'tag';
+        }
         metaEl.textContent = '报价 ' + (q.time || '—') + ' ET · ' + stx +
           (isNaN(q.prevClose) ? '' : ' · 较前收盘 $' + q.prevClose.toFixed(2)) +
-          ' · 来源 ' + q.source;
+          ' · 来源 GitHub 定时快照';
       }
 
-      function tryChain(sources) {
-        if (!sources.length) return Promise.reject(new Error('all sources failed'));
-        return sources[0]().catch(function () { return tryChain(sources.slice(1)); });
-      }
       function refreshQuote(silent) {
         if (btn.disabled) return;
         btn.disabled = true;
         var label = btn.textContent;
         if (!silent) btn.textContent = '⟳ 正在刷新…';
         function done() { btn.disabled = false; btn.textContent = label; }
-        tryChain([loadQuoteJson, loadNasdaq, loadYahoo, loadStooq]).then(function (q) {
+        loadQuoteJson().then(function (q) {
           render(q); done();
         }, function () {
-          if (!silent) {
-            tag.textContent = '刷新失败';
-            tag.className = 'tag unavailable';
-            metaEl.textContent = 'quote.json / Nasdaq / Yahoo / Stooq 均不可达，已保留上一报价 · 点击再试一次';
-          }
+          tag.textContent = '快照读取失败，点击重试';
+          tag.className = 'tag unavailable';
+          tag.style.whiteSpace = 'normal';
           done();
         });
       }
 
       btn.addEventListener('click', function () { refreshQuote(false); });
-      if (inMarketHours()) refreshQuote(true);
+      if (inMarketHours()) refreshQuote(true); // Refresh once automatically during NYSE market hours.
     })();
   </script>
 </body>
