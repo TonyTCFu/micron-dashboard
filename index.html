@@ -803,8 +803,10 @@
       function loadTradingViewQuote() {
         return fetchJson(TRADINGVIEW_URL, 9000).then(function (data) {
           var price = numOf(data && data.close);
-          var netChange = numOf(data && data.change);
-          return normalizeQuote(price, netChange, NaN, price - netChange, '', 'TradingView 直连');
+          var pctChange = numOf(data && data.change);
+          var prevClose = price / (1 + pctChange / 100);
+          var netChange = price - prevClose;
+          return normalizeQuote(price, netChange, pctChange, prevClose, '', 'TradingView 直连');
         });
       }
 
